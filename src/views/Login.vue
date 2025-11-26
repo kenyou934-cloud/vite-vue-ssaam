@@ -140,19 +140,40 @@ const router = useRouter()
 const studentId = ref('')
 const password = ref('')
 
-const handleLogin = () => {
-  const users = JSON.parse(localStorage.getItem('users') || '[]')
-  const user = users.find(u => u.studentId === studentId.value && u.lastName.toLowerCase() === password.value.toLowerCase())
-  
-  if (user) {
-    localStorage.setItem('currentUser', JSON.stringify(user))
-    router.push('/dashboard')
-  } else {
-    alert('Invalid credentials! Please try again.')
+const handleLogin = async () => {
+  try {
+    // Fetch all students
+    const response = await fetch("https://ssaam.vercel.app/students");
+    const students = await response.json();
+
+    console.log("API STUDENTS:", students); // DEBUG: see actual data
+
+    // Normalize inputs
+    const enteredId = studentId.value.trim();
+    const enteredPass = password.value.trim().toLowerCase();
+
+    // Find the matching student
+    const user = students.find(
+      (s) =>
+        s.student_id === enteredId &&
+        s.last_name.toLowerCase() === enteredPass
+    );
+
+    if (user) {
+    console.log("LOGIN SUCCESS:", user);
+    localStorage.setItem("currentUser", JSON.stringify(user));
+    router.push("/dashboard");// Navigate to dashboard
+    return;
   }
-}
+
+    alert("Invalid Student ID or Last Name.");
+  } catch (error) {
+    console.error("Login error:", error);
+    alert("Server error. Try again later.");
+  }
+};
 
 const goToRegister = () => {
   router.push('/register')
 }
-</script>
+</script> 

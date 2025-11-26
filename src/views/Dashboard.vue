@@ -167,7 +167,7 @@
               </thead>
               <tbody>
                 <tr v-for="user in filteredUsers" :key="user.studentId" class="hover:bg-gray-50">
-                  <td class="border border-purple-300 px-6 py-4 text-gray-700">{{ user.firstName }} {{ user.lastName }}</td>
+                  <td class="border border-purple-300 px-6 py-4 text-gray-700">{{ user.firstname }} {{ user.lastName }}</td>
                   <td class="border border-purple-300 px-6 py-4 text-gray-700">{{ user.studentId }}</td>
                   <td class="border border-purple-300 px-6 py-4 text-gray-700">{{ user.email }}</td>
                   <td class="border border-purple-300 px-6 py-4 text-gray-700">{{ user.program }}</td>
@@ -197,12 +197,12 @@
             <form @submit.prevent="saveUserChanges" class="space-y-4">
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
-                <input v-model="editingUser.firstName" type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" required />
+                <input v-model="editingUser.first_name" type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" required />
               </div>
 
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
-                <input v-model="editingUser.lastName" type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" required />
+                <input v-model="editingUser.last_name" type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" required />
               </div>
 
               <div>

@@ -23,7 +23,7 @@ const initializeAdmin = () => {
       role: 'admin',
       image: ''
     }
-    users.push(adminUser)
+    users.push(adminUser)  // No need to wrap in array
     localStorage.setItem('users', JSON.stringify(users))
   }
 }
@@ -31,5 +31,5 @@ const initializeAdmin = () => {
 initializeAdmin()
 
 const app = createApp(App)
-app.use(router)
+app.use(router)  // Ensure router is correctly set up in the `router.js` file
 app.mount('#app')

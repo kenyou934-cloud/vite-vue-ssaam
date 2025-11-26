@@ -1,4 +1,11 @@
 <template>
+  <div
+  v-if="showNotification"
+  class="fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transition-all duration-300 z-50"
+>
+  {{ notificationMessage }}
+  </div>
+
   <div class="hidden md:flex min-h-screen bg-white">
     <div class="desktop-bg-panel">
       <div class="relative z-10 text-center">
@@ -47,21 +54,21 @@
                 <label class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
                 <div class="relative">
                   <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">👤</span>
-                  <input v-model="formData.firstName" type="text" placeholder="Juan" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" required />
+                  <input v-model="formData.first_name" type="text" placeholder="Juan" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" required />
                 </div>
               </div>
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Middle Name</label>
                 <div class="relative">
                   <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">👤</span>
-                  <input v-model="formData.middleName" type="text" placeholder="Dela" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" />
+                  <input v-model="formData.middle_name" type="text" placeholder="Dela" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" />
                 </div>
               </div>
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
                 <div class="relative">
                   <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">👤</span>
-                  <input v-model="formData.lastName" type="text" placeholder="Cruz" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" required />
+                  <input v-model="formData.last_name" type="text" placeholder="Cruz" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" required />
                 </div>
               </div>
               <div>
@@ -102,21 +109,21 @@
                 <label class="block text-sm font-medium text-gray-700 mb-2">Student ID</label>
                 <div class="relative">
                   <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">👤</span>
-                  <input v-model="formData.studentId" type="text" placeholder="25-A-12345" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" required />
+                  <input v-model="formData.student_id" type="text" placeholder="25-A-12345" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" required />
                 </div>
               </div>
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">RFID Code</label>
                 <div class="relative">
                   <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">📡</span>
-                  <input v-model="formData.rfidCode" type="text" placeholder="12345678" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" required />
+                  <input v-model="formData.rfid_code" type="text" placeholder="12345678" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" required />
                 </div>
               </div>
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Year Level</label>
                 <div class="relative">
                   <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">🎓</span>
-                  <select v-model="formData.yearLevel" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none appearance-none bg-white" required>
+                  <select v-model="formData.year_level" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none appearance-none bg-white" required>
                     <option value="" disabled>Select Year Level</option>
                     <option value="1st year">1st year</option>
                     <option value="2nd year">2nd year</option>
@@ -153,7 +160,7 @@
                   <label class="block text-sm font-medium text-gray-700 mb-2">School Year</label>
                   <div class="relative">
                     <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xs">📅</span>
-                    <select v-model="formData.schoolYear" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none appearance-none bg-white text-sm" required>
+                    <select v-model="formData.school_year" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none appearance-none bg-white text-sm" required>
                       <option value="" disabled>Year</option>
                       <option value="2024-2025">2024-2025</option>
                       <option value="2025-2026">2025-2026</option>
@@ -254,21 +261,21 @@
               <label class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
               <div class="relative">
                 <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">👤</span>
-                <input v-model="formData.firstName" type="text" placeholder="Juan" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" required />
+                <input v-model="formData.first_name" type="text" placeholder="Juan" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" required />
               </div>
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">Middle Name</label>
               <div class="relative">
                 <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">👤</span>
-                <input v-model="formData.middleName" type="text" placeholder="Dela" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" />
+                <input v-model="formData.middle_name" type="text" placeholder="Dela" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" />
               </div>
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
               <div class="relative">
                 <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">👤</span>
-                <input v-model="formData.lastName" type="text" placeholder="Cruz" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" required />
+                <input v-model="formData.last_name" type="text" placeholder="Cruz" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" required />
               </div>
             </div>
             <div>
@@ -309,21 +316,21 @@
               <label class="block text-sm font-medium text-gray-700 mb-2">Student ID</label>
               <div class="relative">
                 <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">👤</span>
-                <input v-model="formData.studentId" type="text" placeholder="25-A-12345" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" required />
+                <input v-model="formData.student_id" type="text" placeholder="25-A-12345" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" required />
               </div>
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">RFID Code</label>
               <div class="relative">
                 <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">📡</span>
-                <input v-model="formData.rfidCode" type="text" placeholder="12345678" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" required />
+                <input v-model="formData.rfid_code" type="text" placeholder="12345678" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" required />
               </div>
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">Year Level</label>
               <div class="relative">
                 <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">🎓</span>
-                <select v-model="formData.yearLevel" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none appearance-none bg-white" required>
+                <select v-model="formData.year_level" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none appearance-none bg-white" required>
                   <option value="" disabled>Select Year Level</option>
                   <option value="1st year">1st year</option>
                   <option value="2nd year">2nd year</option>
@@ -360,7 +367,7 @@
                 <label class="block text-sm font-medium text-gray-700 mb-2">School Year</label>
                 <div class="relative">
                   <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xs">📅</span>
-                  <select v-model="formData.schoolYear" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none appearance-none bg-white text-sm" required>
+                  <select v-model="formData.school_year" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none appearance-none bg-white text-sm" required>
                     <option value="" disabled>Year</option>
                     <option value="2024-2025">2024-2025</option>
                     <option value="2025-2026">2025-2026</option>
@@ -442,42 +449,115 @@ const currentStep = ref(1)
 const imagePreview = ref('')
 
 const formData = reactive({
-  firstName: '',
-  middleName: '',
-  lastName: '',
+  student_id: '',
+  rfid_code: '',
+  first_name: '',
+  middle_name: '',
+  last_name: '',
+  year_level: '',
   suffix: '',
-  email: '',
-  studentId: '',
-  rfidCode: '',
-  yearLevel: '',
   program: '',
+  photo: '',
   semester: '',
-  schoolYear: '',
-  image: '',
-  role: 'student'
 })
 
-const handleImageUpload = (event) => {
-  const file = event.target.files[0]
-  if (file) {
-    const reader = new FileReader()
-    reader.onload = (e) => {
-      imagePreview.value = e.target.result
-      formData.image = e.target.result
-    }
-    reader.readAsDataURL(file)
-  }
-}
+const isUploading = ref(false);
 
-const handleNext = () => {
+const handleImageUpload = async (event) => {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  // Preview
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    imagePreview.value = e.target.result;
+  };
+  reader.readAsDataURL(file);
+
+  isUploading.value = true;
+  formData.photo = "";
+
+  try {
+    const apiKey = "b6a37178abd163036357a7ba35fd0364";
+    const form = new FormData();
+    form.append("key", apiKey);
+    form.append("image", file);
+
+    const res = await fetch("https://api.imgbb.com/1/upload", {
+      method: "POST",
+      body: form,
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      formData.photo = data.data.url;
+      console.log("Uploaded Image URL:", formData.photo);
+    } else {
+      console.error("Image upload failed:", data);
+    }
+  } catch (error) {
+    console.error("Upload error:", error);
+  }
+
+  isUploading.value = false;
+};
+
+
+const showNotification = ref(false)
+const notificationMessage = ref('')
+
+const handleNext = async () => {
+  // STEP 1 validation
+  if (currentStep.value === 1) {
+    if (!formData.first_name || !formData.last_name || !formData.email) return
+  }
+
+  // STEP 2 validation
+  if (currentStep.value === 2) {
+    if (!formData.student_id || !formData.rfid_code || !formData.year_level || !formData.program) return
+  }
+
+  // STEP 3 — final step: submit form
+  if (currentStep.value === 3) {
+    while (isUploading.value) {
+      await new Promise(resolve => setTimeout(resolve, 300))
+    }
+
+    if (!formData.photo) {
+      console.error("Photo missing after upload.")
+      return
+    }
+
+    try {
+      const response = await fetch('https://ssaam.vercel.app/students', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      })
+
+      if (response.ok) {
+        notificationMessage.value = "Registered successfully! 🎉"
+        showNotification.value = true
+
+        setTimeout(() => {
+          showNotification.value = false
+          router.push('/') // redirect after showing notification
+        }, 3000)
+      } else {
+        const errorData = await response.json()
+        console.error("Error:", errorData)
+      }
+    } catch (error) {
+      console.error("Submit error:", error)
+    }
+
+    return // stop further execution
+  }
+
+  // Go to next step if not final
   if (currentStep.value < 3) {
     currentStep.value++
-  } else {
-    const users = JSON.parse(localStorage.getItem('users') || '[]')
-    users.push({ ...formData })
-    localStorage.setItem('users', JSON.stringify(users))
-    alert('Registration successful! Please login.')
-    router.push('/')
   }
 }
 

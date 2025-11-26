@@ -142,15 +142,30 @@ const password = ref('')
 
 const handleLogin = async () => {
   try {
-    // Fetch all students
+    const enteredId = studentId.value.trim();
+    const enteredPass = password.value.trim().toLowerCase();
+
+    // Check for admin user in localStorage first
+    const localUsers = JSON.parse(localStorage.getItem('users') || '[]');
+    const adminUser = localUsers.find(
+      (u) =>
+        u.role === 'admin' &&
+        u.studentId === enteredId &&
+        u.lastName.toLowerCase() === enteredPass
+    );
+
+    if (adminUser) {
+      console.log("ADMIN LOGIN SUCCESS:", adminUser);
+      localStorage.setItem("currentUser", JSON.stringify(adminUser));
+      router.push("/dashboard");
+      return;
+    }
+
+    // Fetch all students from API
     const response = await fetch("https://ssaam.vercel.app/students");
     const students = await response.json();
 
-    console.log("API STUDENTS:", students); // DEBUG: see actual data
-
-    // Normalize inputs
-    const enteredId = studentId.value.trim();
-    const enteredPass = password.value.trim().toLowerCase();
+    console.log("API STUDENTS:", students);
 
     // Find the matching student
     const user = students.find(
@@ -160,11 +175,26 @@ const handleLogin = async () => {
     );
 
     if (user) {
-    console.log("LOGIN SUCCESS:", user);
-    localStorage.setItem("currentUser", JSON.stringify(user));
-    router.push("/dashboard");// Navigate to dashboard
-    return;
-  }
+      console.log("LOGIN SUCCESS:", user);
+      const normalizedUser = {
+        ...user,
+        studentId: user.student_id,
+        firstName: user.first_name,
+        lastName: user.last_name,
+        middleName: user.middle_name || '',
+        email: user.email || '',
+        rfidCode: user.rfid_code || '',
+        yearLevel: user.year_level || '',
+        semester: user.semester || '',
+        schoolYear: user.school_year || '',
+        program: user.program || '',
+        role: user.role || 'student',
+        image: user.photo || user.image || ''
+      };
+      localStorage.setItem("currentUser", JSON.stringify(normalizedUser));
+      router.push("/dashboard");
+      return;
+    }
 
     alert("Invalid Student ID or Last Name.");
   } catch (error) {

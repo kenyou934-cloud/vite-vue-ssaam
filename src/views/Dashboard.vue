@@ -11,7 +11,7 @@
       <div class="p-6 border-b border-white border-opacity-20">
         <div class="flex items-center space-x-3">
           <div class="w-12 h-12 rounded-full bg-white bg-opacity-30 flex items-center justify-center text-2xl overflow-hidden">
-            <img v-if="currentUser.image" :src="currentUser.image" alt="Profile" class="w-full h-full object-cover" />
+            <img v-if="currentUser.image || currentUser.photo" :src="currentUser.image || currentUser.photo" alt="Profile" class="w-full h-full object-cover" />
             <span v-else>👤</span>
           </div>
           <div>
@@ -50,13 +50,13 @@
           <div class="flex flex-col md:flex-row gap-8">
             <div class="flex flex-col items-center">
               <div class="w-32 h-32 rounded-full bg-gray-200 overflow-hidden mb-4 shadow-lg">
-                <img v-if="currentUser.image" :src="currentUser.image" alt="Profile Picture" class="w-full h-full object-cover" />
+                <img v-if="currentUser.image || currentUser.photo" :src="currentUser.image || currentUser.photo" alt="Profile Picture" class="w-full h-full object-cover" />
                 <div v-else class="w-full h-full flex items-center justify-center text-6xl text-gray-400">
                   👤
                 </div>
               </div>
               <p class="text-lg font-semibold text-purple-900">{{ displayName }}</p>
-              <p class="text-sm text-gray-600">{{ currentUser.studentId }}</p>
+              <p class="text-sm text-gray-600">{{ currentUser.studentId || currentUser.student_id }}</p>
             </div>
             <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
@@ -166,9 +166,9 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="user in filteredUsers" :key="user.studentId" class="hover:bg-gray-50">
-                  <td class="border border-purple-300 px-6 py-4 text-gray-700">{{ user.firstname }} {{ user.lastName }}</td>
-                  <td class="border border-purple-300 px-6 py-4 text-gray-700">{{ user.studentId }}</td>
+                <tr v-for="user in filteredUsers" :key="user.studentId || user.student_id" class="hover:bg-gray-50">
+                  <td class="border border-purple-300 px-6 py-4 text-gray-700">{{ user.firstName || user.first_name }} {{ user.lastName || user.last_name }}</td>
+                  <td class="border border-purple-300 px-6 py-4 text-gray-700">{{ user.studentId || user.student_id }}</td>
                   <td class="border border-purple-300 px-6 py-4 text-gray-700">{{ user.email }}</td>
                   <td class="border border-purple-300 px-6 py-4 text-gray-700">{{ user.program }}</td>
                   <td class="border border-purple-300 px-6 py-4 text-center">
@@ -255,8 +255,10 @@ const users = ref([])
 const searchQuery = ref('')
 
 const displayName = computed(() => {
-  if (currentUser.value.firstName && currentUser.value.lastName) {
-    return `${currentUser.value.firstName} ${currentUser.value.lastName}`
+  const firstName = currentUser.value.firstName || currentUser.value.first_name
+  const lastName = currentUser.value.lastName || currentUser.value.last_name
+  if (firstName && lastName) {
+    return `${firstName} ${lastName}`
   }
   return currentUser.value.name || 'User'
 })
@@ -268,10 +270,12 @@ const filteredUsers = computed(() => {
   
   const query = searchQuery.value.toLowerCase().trim()
   return users.value.filter(user => {
-    const fullName = `${user.firstName} ${user.lastName}`.toLowerCase()
-    const studentId = user.studentId.toLowerCase()
-    const email = user.email.toLowerCase()
-    const program = user.program.toLowerCase()
+    const firstName = user.firstName || user.first_name || ''
+    const lastName = user.lastName || user.last_name || ''
+    const fullName = `${firstName} ${lastName}`.toLowerCase()
+    const studentId = (user.studentId || user.student_id || '').toLowerCase()
+    const email = (user.email || '').toLowerCase()
+    const program = (user.program || '').toLowerCase()
     
     return (
       fullName.includes(query) ||
@@ -282,14 +286,37 @@ const filteredUsers = computed(() => {
   })
 })
 
-onMounted(() => {
+onMounted(async () => {
   const user = JSON.parse(localStorage.getItem('currentUser') || '{}')
-  if (!user.studentId) {
+  if (!user.studentId && !user.student_id) {
     router.push('/')
     return
   }
   currentUser.value = user
-  users.value = JSON.parse(localStorage.getItem('users') || '[]')
+  
+  // If admin, fetch students from API
+  if (user.role === 'admin') {
+    try {
+      const response = await fetch('https://ssaam.vercel.app/students')
+      const apiStudents = await response.json()
+      // Normalize API data to match expected field names
+      users.value = apiStudents.map(s => ({
+        ...s,
+        studentId: s.student_id,
+        firstName: s.first_name,
+        lastName: s.last_name,
+        yearLevel: s.year_level,
+        rfidCode: s.rfid_code,
+        schoolYear: s.school_year,
+        image: s.photo || s.image || ''
+      }))
+    } catch (error) {
+      console.error('Failed to fetch students:', error)
+      users.value = []
+    }
+  } else {
+    users.value = JSON.parse(localStorage.getItem('users') || '[]')
+  }
 })
 
 const stats = computed(() => {
@@ -300,9 +327,11 @@ const stats = computed(() => {
   }
   
   users.value.forEach(user => {
-    if (result[user.program] && result[user.program][user.yearLevel] !== undefined) {
-      result[user.program][user.yearLevel]++
-      result[user.program].total++
+    const program = user.program
+    const yearLevel = user.yearLevel || user.year_level
+    if (result[program] && result[program][yearLevel] !== undefined) {
+      result[program][yearLevel]++
+      result[program].total++
     }
   })
   

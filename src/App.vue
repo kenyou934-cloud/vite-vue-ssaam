@@ -1,10 +1,21 @@
 <template>
   <div id="app">
-    <router-view />
+    <LoadingScreen v-if="isLoading" />
+    <router-view v-if="!isLoading" />
   </div>
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'
+import LoadingScreen from './components/LoadingScreen.vue'
+
+const isLoading = ref(true)
+
+onMounted(() => {
+  setTimeout(() => {
+    isLoading.value = false
+  }, 2000)
+})
 </script>
 
 <style>

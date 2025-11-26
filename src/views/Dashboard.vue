@@ -10,8 +10,9 @@
 
       <div class="p-6 border-b border-white border-opacity-20">
         <div class="flex items-center space-x-3">
-          <div class="w-12 h-12 rounded-full bg-white bg-opacity-30 flex items-center justify-center text-2xl">
-            👤
+          <div class="w-12 h-12 rounded-full bg-white bg-opacity-30 flex items-center justify-center text-2xl overflow-hidden">
+            <img v-if="currentUser.image" :src="currentUser.image" alt="Profile" class="w-full h-full object-cover" />
+            <span v-else>👤</span>
           </div>
           <div>
             <p class="text-sm">Welcome back,</p>
@@ -44,81 +45,49 @@
       <div class="p-8">
         <h1 class="text-4xl font-bold text-purple-900 mb-8 pb-4 border-b-2 border-purple-900">Dashboard</h1>
 
-        <div v-if="currentUser.role === 'admin'" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div class="bg-white rounded-lg shadow-lg p-6">
-            <div class="flex items-center justify-between">
-              <div>
-                <p class="text-gray-500 text-sm font-medium">Today's Attendance</p>
-                <p class="text-3xl font-bold text-purple-900 mt-2">{{ todayAttendance }}</p>
+        <div v-if="currentUser.role !== 'admin'" class="bg-white rounded-lg shadow-lg p-8 mb-8">
+          <h2 class="text-2xl font-bold text-purple-900 mb-6">My Profile</h2>
+          <div class="flex flex-col md:flex-row gap-8">
+            <div class="flex flex-col items-center">
+              <div class="w-32 h-32 rounded-full bg-gray-200 overflow-hidden mb-4 shadow-lg">
+                <img v-if="currentUser.image" :src="currentUser.image" alt="Profile Picture" class="w-full h-full object-cover" />
+                <div v-else class="w-full h-full flex items-center justify-center text-6xl text-gray-400">
+                  👤
+                </div>
               </div>
-              <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                <span class="text-2xl">📅</span>
-              </div>
+              <p class="text-lg font-semibold text-purple-900">{{ displayName }}</p>
+              <p class="text-sm text-gray-600">{{ currentUser.studentId }}</p>
             </div>
-          </div>
-
-          <div class="bg-white rounded-lg shadow-lg p-6">
-            <div class="flex items-center justify-between">
+            <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <p class="text-gray-500 text-sm font-medium">Total Attendance Records</p>
-                <p class="text-3xl font-bold text-green-600 mt-2">{{ totalAttendanceRecords }}</p>
+                <p class="text-sm text-gray-500 font-medium">Email</p>
+                <p class="text-base text-gray-900">{{ currentUser.email }}</p>
               </div>
-              <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                <span class="text-2xl">✓</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="bg-white rounded-lg shadow-lg p-6">
-            <div class="flex items-center justify-between">
               <div>
-                <p class="text-gray-500 text-sm font-medium">Attendance Rate</p>
-                <p class="text-3xl font-bold text-blue-600 mt-2">{{ attendanceRate }}%</p>
+                <p class="text-sm text-gray-500 font-medium">RFID Code</p>
+                <p class="text-base text-gray-900">{{ currentUser.rfidCode }}</p>
               </div>
-              <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                <span class="text-2xl">📊</span>
+              <div>
+                <p class="text-sm text-gray-500 font-medium">Program</p>
+                <p class="text-base text-gray-900">{{ currentUser.program }}</p>
+              </div>
+              <div>
+                <p class="text-sm text-gray-500 font-medium">Year Level</p>
+                <p class="text-base text-gray-900">{{ currentUser.yearLevel }}</p>
+              </div>
+              <div>
+                <p class="text-sm text-gray-500 font-medium">Semester</p>
+                <p class="text-base text-gray-900">{{ currentUser.semester }}</p>
+              </div>
+              <div>
+                <p class="text-sm text-gray-500 font-medium">School Year</p>
+                <p class="text-base text-gray-900">{{ currentUser.schoolYear }}</p>
               </div>
             </div>
           </div>
         </div>
 
         <div v-if="currentUser.role === 'admin'" class="bg-white rounded-lg shadow-lg p-8 mb-8">
-          <h2 class="text-2xl font-bold text-purple-900 mb-6">Today's Attendance Records</h2>
-          
-          <div v-if="todayAttendanceList.length === 0" class="text-center py-8 text-gray-500">
-            No attendance records for today
-          </div>
-
-          <div v-else class="overflow-x-auto">
-            <table class="w-full border-collapse">
-              <thead>
-                <tr class="bg-purple-100">
-                  <th class="border border-purple-300 px-6 py-3 text-left font-semibold text-purple-900">Student ID</th>
-                  <th class="border border-purple-300 px-6 py-3 text-left font-semibold text-purple-900">Name</th>
-                  <th class="border border-purple-300 px-6 py-3 text-center font-semibold text-purple-900">Program</th>
-                  <th class="border border-purple-300 px-6 py-3 text-center font-semibold text-purple-900">Year Level</th>
-                  <th class="border border-purple-300 px-6 py-3 text-center font-semibold text-purple-900">Check-in Time</th>
-                  <th class="border border-purple-300 px-6 py-3 text-center font-semibold text-purple-900">Check-out Time</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="record in todayAttendanceList" :key="record.id" class="hover:bg-gray-50">
-                  <td class="border border-purple-300 px-6 py-4">{{ record.studentId }}</td>
-                  <td class="border border-purple-300 px-6 py-4">{{ record.studentName }}</td>
-                  <td class="border border-purple-300 px-6 py-4 text-center">{{ record.program }}</td>
-                  <td class="border border-purple-300 px-6 py-4 text-center">{{ record.yearLevel }}</td>
-                  <td class="border border-purple-300 px-6 py-4 text-center">{{ record.checkInTime }}</td>
-                  <td class="border border-purple-300 px-6 py-4 text-center">
-                    <span v-if="record.checkOutTime">{{ record.checkOutTime }}</span>
-                    <span v-else class="text-green-600 font-medium">Active</span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div class="bg-white rounded-lg shadow-lg p-8">
           <h2 class="text-2xl font-bold text-purple-900 mb-6">Registered Students</h2>
 
           <div class="overflow-x-auto">
@@ -172,6 +141,105 @@
             </p>
           </div>
         </div>
+
+        <div v-if="currentUser.role === 'admin'" class="bg-white rounded-lg shadow-lg p-8">
+          <h2 class="text-2xl font-bold text-purple-900 mb-6">User Management</h2>
+
+          <div class="mb-6">
+            <input 
+              v-model="searchQuery" 
+              type="text" 
+              placeholder="🔍 Search students by name, ID, email, or program..." 
+              class="w-full px-4 py-3 border-2 border-purple-300 rounded-lg focus:outline-none focus:border-purple-600 focus:ring-2 focus:ring-purple-200 transition"
+            />
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full border-collapse">
+              <thead>
+                <tr class="bg-purple-100">
+                  <th class="border border-purple-300 px-6 py-3 text-left font-semibold text-purple-900">Name</th>
+                  <th class="border border-purple-300 px-6 py-3 text-left font-semibold text-purple-900">Student ID</th>
+                  <th class="border border-purple-300 px-6 py-3 text-left font-semibold text-purple-900">Email</th>
+                  <th class="border border-purple-300 px-6 py-3 text-left font-semibold text-purple-900">Program</th>
+                  <th class="border border-purple-300 px-6 py-3 text-center font-semibold text-purple-900">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="user in filteredUsers" :key="user.studentId" class="hover:bg-gray-50">
+                  <td class="border border-purple-300 px-6 py-4 text-gray-700">{{ user.firstName }} {{ user.lastName }}</td>
+                  <td class="border border-purple-300 px-6 py-4 text-gray-700">{{ user.studentId }}</td>
+                  <td class="border border-purple-300 px-6 py-4 text-gray-700">{{ user.email }}</td>
+                  <td class="border border-purple-300 px-6 py-4 text-gray-700">{{ user.program }}</td>
+                  <td class="border border-purple-300 px-6 py-4 text-center">
+                    <button @click="openEditModal(user)" class="px-2 py-1 text-sm bg-blue-500 text-white rounded font-medium hover:bg-blue-600 transition duration-300 mr-1">
+                      ✏️  
+                      </button>
+                    <button @click="removeUser(user.studentId)" class="px-2 py-1 text-sm bg-red-500 text-white rounded font-medium hover:bg-red-600 transition duration-300">
+                      🗑️ 
+                    </button>
+                  </td>
+                </tr>
+                <tr v-if="filteredUsers.length === 0">
+                  <td colspan="5" class="border border-purple-300 px-6 py-4 text-center text-gray-500">
+                    {{ users.length === 0 ? 'No users registered yet.' : 'No students match your search.' }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div v-if="showEditModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div class="bg-white rounded-lg shadow-2xl p-8 w-full max-w-md">
+            <h3 class="text-2xl font-bold text-purple-900 mb-6">Edit User</h3>
+            
+            <form @submit.prevent="saveUserChanges" class="space-y-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                <input v-model="editingUser.firstName" type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" required />
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+                <input v-model="editingUser.lastName" type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" required />
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                <input v-model="editingUser.email" type="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" required />
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Program</label>
+                <select v-model="editingUser.program" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none appearance-none bg-white" required>
+                  <option value="BSCS">BSCS</option>
+                  <option value="BSIS">BSIS</option>
+                  <option value="BSIT">BSIT</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Year Level</label>
+                <select v-model="editingUser.yearLevel" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none appearance-none bg-white" required>
+                  <option value="1st year">1st year</option>
+                  <option value="2nd year">2nd year</option>
+                  <option value="3rd year">3rd year</option>
+                  <option value="4th year">4th year</option>
+                </select>
+              </div>
+
+              <div class="flex gap-4 pt-6">
+                <button type="button" @click="closeEditModal" class="flex-1 px-4 py-3 border-2 border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition duration-300">
+                  Cancel
+                </button>
+                <button type="submit" class="flex-1 px-4 py-3 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 transition duration-300">
+                  Save Changes
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -184,90 +252,45 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 const currentUser = ref({})
 const users = ref([])
-const attendanceRecords = ref([])
+const searchQuery = ref('')
 
 const displayName = computed(() => {
-  if (currentUser.value.role === 'admin') {
-    return 'ADMIN'
-  }
   if (currentUser.value.firstName && currentUser.value.lastName) {
     return `${currentUser.value.firstName} ${currentUser.value.lastName}`
   }
   return currentUser.value.name || 'User'
 })
 
-const getTodayDate = () => {
-  const today = new Date()
-  return today.toISOString().split('T')[0]
-}
-
-const todayAttendanceList = computed(() => {
-  const today = getTodayDate()
-  return attendanceRecords.value
-    .filter(record => record.date === today)
-    .map(record => {
-      const user = users.value.find(u => u.studentId === record.studentId)
-      return {
-        ...record,
-        studentName: user ? `${user.firstName} ${user.lastName}` : 'Unknown',
-        program: user?.program || 'N/A',
-        yearLevel: user?.yearLevel || 'N/A'
-      }
-    })
-})
-
-const todayAttendance = computed(() => {
-  return todayAttendanceList.value.length
-})
-
-const totalAttendanceRecords = computed(() => {
-  return attendanceRecords.value.length
-})
-
-const attendanceRate = computed(() => {
-  if (users.value.length === 0) return 0
-  const rate = (todayAttendance.value / users.value.length) * 100
-  return Math.round(rate * 10) / 10
+const filteredUsers = computed(() => {
+  if (!searchQuery.value.trim()) {
+    return users.value
+  }
+  
+  const query = searchQuery.value.toLowerCase().trim()
+  return users.value.filter(user => {
+    const fullName = `${user.firstName} ${user.lastName}`.toLowerCase()
+    const studentId = user.studentId.toLowerCase()
+    const email = user.email.toLowerCase()
+    const program = user.program.toLowerCase()
+    
+    return (
+      fullName.includes(query) ||
+      studentId.includes(query) ||
+      email.includes(query) ||
+      program.includes(query)
+    )
+  })
 })
 
 onMounted(() => {
   const user = JSON.parse(localStorage.getItem('currentUser') || '{}')
-  if (!user.role && !user.studentId) {
+  if (!user.studentId) {
     router.push('/')
     return
   }
   currentUser.value = user
   users.value = JSON.parse(localStorage.getItem('users') || '[]')
-  attendanceRecords.value = JSON.parse(localStorage.getItem('attendance') || '[]')
-  
-  if (attendanceRecords.value.length === 0 && users.value.length > 0) {
-    generateSampleAttendance()
-  }
 })
-
-const generateSampleAttendance = () => {
-  const today = getTodayDate()
-  const sampleRecords = []
-  const sampleStudents = users.value.slice(0, Math.min(15, users.value.length))
-  
-  sampleStudents.forEach((student, index) => {
-    const checkInHour = 7 + Math.floor(Math.random() * 3)
-    const checkInMinute = Math.floor(Math.random() * 60)
-    const checkOutHour = checkInHour + 2 + Math.floor(Math.random() * 4)
-    const checkOutMinute = Math.floor(Math.random() * 60)
-    
-    sampleRecords.push({
-      id: `att-${Date.now()}-${index}`,
-      studentId: student.studentId,
-      date: today,
-      checkInTime: `${checkInHour.toString().padStart(2, '0')}:${checkInMinute.toString().padStart(2, '0')}`,
-      checkOutTime: index % 3 === 0 ? null : `${checkOutHour.toString().padStart(2, '0')}:${checkOutMinute.toString().padStart(2, '0')}`
-    })
-  })
-  
-  localStorage.setItem('attendance', JSON.stringify(sampleRecords))
-  attendanceRecords.value = sampleRecords
-}
 
 const stats = computed(() => {
   const result = {
@@ -293,5 +316,34 @@ const totalStudents = computed(() => {
 const handleLogout = () => {
   localStorage.removeItem('currentUser')
   router.push('/')
+}
+
+const showEditModal = ref(false)
+const editingUser = ref({})
+
+const openEditModal = (user) => {
+  editingUser.value = { ...user }
+  showEditModal.value = true
+}
+
+const closeEditModal = () => {
+  showEditModal.value = false
+  editingUser.value = {}
+}
+
+const saveUserChanges = () => {
+  const userIndex = users.value.findIndex(u => u.studentId === editingUser.value.studentId)
+  if (userIndex !== -1) {
+    users.value[userIndex] = { ...users.value[userIndex], ...editingUser.value }
+    localStorage.setItem('users', JSON.stringify(users.value))
+    closeEditModal()
+  }
+}
+
+const removeUser = (studentId) => {
+  if (confirm(`Are you sure you want to remove this user? This action cannot be undone.`)) {
+    users.value = users.value.filter(user => user.studentId !== studentId)
+    localStorage.setItem('users', JSON.stringify(users.value))
+  }
 }
 </script>

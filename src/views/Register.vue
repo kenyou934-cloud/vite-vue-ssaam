@@ -459,6 +459,8 @@ const formData = reactive({
   program: '',
   photo: '',
   semester: '',
+  email: '',
+  school_year: '',
 })
 
 const isUploading = ref(false);

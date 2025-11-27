@@ -61,27 +61,27 @@
             <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <p class="text-sm text-gray-500 font-medium">Email</p>
-                <p class="text-base text-gray-900">{{ currentUser.email }}</p>
+                <p class="text-base text-gray-900">{{ currentUser.email || 'Not provided' }}</p>
               </div>
               <div>
                 <p class="text-sm text-gray-500 font-medium">RFID Code</p>
-                <p class="text-base text-gray-900">{{ currentUser.rfidCode }}</p>
+                <p class="text-base text-gray-900">{{ currentUser.rfidCode || currentUser.rfid_code || 'Not provided' }}</p>
               </div>
               <div>
                 <p class="text-sm text-gray-500 font-medium">Program</p>
-                <p class="text-base text-gray-900">{{ currentUser.program }}</p>
+                <p class="text-base text-gray-900">{{ currentUser.program || 'Not provided' }}</p>
               </div>
               <div>
                 <p class="text-sm text-gray-500 font-medium">Year Level</p>
-                <p class="text-base text-gray-900">{{ currentUser.yearLevel }}</p>
+                <p class="text-base text-gray-900">{{ currentUser.yearLevel || currentUser.year_level || 'Not provided' }}</p>
               </div>
               <div>
                 <p class="text-sm text-gray-500 font-medium">Semester</p>
-                <p class="text-base text-gray-900">{{ currentUser.semester }}</p>
+                <p class="text-base text-gray-900">{{ currentUser.semester || 'Not provided' }}</p>
               </div>
               <div>
                 <p class="text-sm text-gray-500 font-medium">School Year</p>
-                <p class="text-base text-gray-900">{{ currentUser.schoolYear }}</p>
+                <p class="text-base text-gray-900">{{ currentUser.schoolYear || currentUser.school_year || 'Not provided' }}</p>
               </div>
             </div>
           </div>
@@ -142,104 +142,6 @@
           </div>
         </div>
 
-        <div v-if="currentUser.role === 'admin'" class="bg-white rounded-lg shadow-lg p-8">
-          <h2 class="text-2xl font-bold text-purple-900 mb-6">User Management</h2>
-
-          <div class="mb-6">
-            <input 
-              v-model="searchQuery" 
-              type="text" 
-              placeholder="🔍 Search students by name, ID, email, or program..." 
-              class="w-full px-4 py-3 border-2 border-purple-300 rounded-lg focus:outline-none focus:border-purple-600 focus:ring-2 focus:ring-purple-200 transition"
-            />
-          </div>
-
-          <div class="overflow-x-auto">
-            <table class="w-full border-collapse">
-              <thead>
-                <tr class="bg-purple-100">
-                  <th class="border border-purple-300 px-6 py-3 text-left font-semibold text-purple-900">Name</th>
-                  <th class="border border-purple-300 px-6 py-3 text-left font-semibold text-purple-900">Student ID</th>
-                  <th class="border border-purple-300 px-6 py-3 text-left font-semibold text-purple-900">Email</th>
-                  <th class="border border-purple-300 px-6 py-3 text-left font-semibold text-purple-900">Program</th>
-                  <th class="border border-purple-300 px-6 py-3 text-center font-semibold text-purple-900">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="user in filteredUsers" :key="user.studentId || user.student_id" class="hover:bg-gray-50">
-                  <td class="border border-purple-300 px-6 py-4 text-gray-700">{{ user.firstName || user.first_name }} {{ user.lastName || user.last_name }}</td>
-                  <td class="border border-purple-300 px-6 py-4 text-gray-700">{{ user.studentId || user.student_id }}</td>
-                  <td class="border border-purple-300 px-6 py-4 text-gray-700">{{ user.email }}</td>
-                  <td class="border border-purple-300 px-6 py-4 text-gray-700">{{ user.program }}</td>
-                  <td class="border border-purple-300 px-6 py-4 text-center">
-                    <button @click="openEditModal(user)" class="px-2 py-1 text-sm bg-blue-500 text-white rounded font-medium hover:bg-blue-600 transition duration-300 mr-1">
-                      ✏️  
-                      </button>
-                    <button @click="removeUser(user.studentId)" class="px-2 py-1 text-sm bg-red-500 text-white rounded font-medium hover:bg-red-600 transition duration-300">
-                      🗑️ 
-                    </button>
-                  </td>
-                </tr>
-                <tr v-if="filteredUsers.length === 0">
-                  <td colspan="5" class="border border-purple-300 px-6 py-4 text-center text-gray-500">
-                    {{ users.length === 0 ? 'No users registered yet.' : 'No students match your search.' }}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div v-if="showEditModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div class="bg-white rounded-lg shadow-2xl p-8 w-full max-w-md">
-            <h3 class="text-2xl font-bold text-purple-900 mb-6">Edit User</h3>
-            
-            <form @submit.prevent="saveUserChanges" class="space-y-4">
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
-                <input v-model="editingUser.first_name" type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" required />
-              </div>
-
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
-                <input v-model="editingUser.last_name" type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" required />
-              </div>
-
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
-                <input v-model="editingUser.email" type="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" required />
-              </div>
-
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Program</label>
-                <select v-model="editingUser.program" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none appearance-none bg-white" required>
-                  <option value="BSCS">BSCS</option>
-                  <option value="BSIS">BSIS</option>
-                  <option value="BSIT">BSIT</option>
-                </select>
-              </div>
-
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Year Level</label>
-                <select v-model="editingUser.yearLevel" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none appearance-none bg-white" required>
-                  <option value="1st year">1st year</option>
-                  <option value="2nd year">2nd year</option>
-                  <option value="3rd year">3rd year</option>
-                  <option value="4th year">4th year</option>
-                </select>
-              </div>
-
-              <div class="flex gap-4 pt-6">
-                <button type="button" @click="closeEditModal" class="flex-1 px-4 py-3 border-2 border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition duration-300">
-                  Cancel
-                </button>
-                <button type="submit" class="flex-1 px-4 py-3 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 transition duration-300">
-                  Save Changes
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -252,7 +154,6 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 const currentUser = ref({})
 const users = ref([])
-const searchQuery = ref('')
 
 const displayName = computed(() => {
   const firstName = currentUser.value.firstName || currentUser.value.first_name
@@ -261,29 +162,6 @@ const displayName = computed(() => {
     return `${firstName} ${lastName}`
   }
   return currentUser.value.name || 'User'
-})
-
-const filteredUsers = computed(() => {
-  if (!searchQuery.value.trim()) {
-    return users.value
-  }
-  
-  const query = searchQuery.value.toLowerCase().trim()
-  return users.value.filter(user => {
-    const firstName = user.firstName || user.first_name || ''
-    const lastName = user.lastName || user.last_name || ''
-    const fullName = `${firstName} ${lastName}`.toLowerCase()
-    const studentId = (user.studentId || user.student_id || '').toLowerCase()
-    const email = (user.email || '').toLowerCase()
-    const program = (user.program || '').toLowerCase()
-    
-    return (
-      fullName.includes(query) ||
-      studentId.includes(query) ||
-      email.includes(query) ||
-      program.includes(query)
-    )
-  })
 })
 
 onMounted(async () => {
@@ -345,34 +223,5 @@ const totalStudents = computed(() => {
 const handleLogout = () => {
   localStorage.removeItem('currentUser')
   router.push('/')
-}
-
-const showEditModal = ref(false)
-const editingUser = ref({})
-
-const openEditModal = (user) => {
-  editingUser.value = { ...user }
-  showEditModal.value = true
-}
-
-const closeEditModal = () => {
-  showEditModal.value = false
-  editingUser.value = {}
-}
-
-const saveUserChanges = () => {
-  const userIndex = users.value.findIndex(u => u.studentId === editingUser.value.studentId)
-  if (userIndex !== -1) {
-    users.value[userIndex] = { ...users.value[userIndex], ...editingUser.value }
-    localStorage.setItem('users', JSON.stringify(users.value))
-    closeEditModal()
-  }
-}
-
-const removeUser = (studentId) => {
-  if (confirm(`Are you sure you want to remove this user? This action cannot be undone.`)) {
-    users.value = users.value.filter(user => user.studentId !== studentId)
-    localStorage.setItem('users', JSON.stringify(users.value))
-  }
 }
 </script>

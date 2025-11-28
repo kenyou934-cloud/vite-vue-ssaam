@@ -21,6 +21,7 @@ A Vue 3 + Vite frontend application for monitoring student attendance at school 
 - Anti-copy protection and styled error notifications
 - Image preloading before login form appears
 - Optional field labels for better UX
+- Advanced form validation with custom error messages
 
 ## Configuration
 - **Dev Server**: Port 5000, host 0.0.0.0
@@ -38,38 +39,47 @@ The application is configured to run on Replit with:
 
 ## Latest Updates (2025-11-28)
 
-### Image Preloading & Optional Fields
-- **Loading Screen Image Preload**: All images (SVG icons, background, logo) now preload before proceeding to login
-  - Implemented in LoadingScreen.vue with Promise.all()
-  - Prevents image flashing or delays during user interactions
-  - Graceful error handling for missing images
-- **Optional Field Labels**: Register form now clearly marks optional fields
-  - Middle Name: Shows "(optional)" in gray text
-  - RFID Code: Shows "(optional)" in gray text
-  - Applied to both desktop and mobile versions
-  - Helps users understand required vs. optional information
+### Advanced Form Validation
+- **Student ID Format**: Must follow format `12-A-12345` (2 digits, hyphen, 1 uppercase letter, hyphen, 5 digits)
+- **Name Fields**: Only letters and spaces allowed in First Name, Middle Name, and Last Name (no symbols)
+- **Custom Error Messages**: All validation errors displayed in professional modals matching app theme
+- **Removed Browser Validation**: Replaced default "Please fill in this field" with SSAAM-branded messages
 
-### Contact Modal - Fully Responsive
-- **Grid Layout**: Mobile (1 col) → Tablet (2 col) → Desktop (3 col)
-- **Scrollable on Small Screens**: Added `max-h-[90vh] overflow-y-auto`
-- **Form Validation Compatibility**: Modal z-index set to `z-40`
-- **All SVG Icons White**: mail.svg, home.svg, register_user.svg
+### Optional Field Indicators
+- **Middle Name**: Shows "(optional)" in gray text
+- **RFID Code**: Shows "(optional)" in gray text
+- **Suffix**: Shows "(optional)" in gray text
+- Applied across both desktop and mobile versions
 
-### Developers Popup - Fixed Text Overlap
-- **Larger Modal**: `max-w-4xl` for better spacing
-- **Bigger Avatar Circles**: `w-20 h-20`
-- **Smart Text Truncation**:
-  - Developer names: `line-clamp-2`
-  - Roles: `line-clamp-1`
-- **Better Responsive Grid**: `grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5`
-
-### Login Dashboard Updates
-- **Register Button Icon**: Uses `register_user.svg` (both desktop & mobile)
+### Image Preloading & Mobile Contact Modal
+- **Loading Screen Image Preload**: All images preload before proceeding to login
+- **Mobile Contact Modal**: Fixed "Need help?" button on mobile to open Contact modal
+- **Professional Validation**: All forms use `novalidate` for custom SSAAM-branded messages
 
 ### Professional SVG Icon System (Complete)
 - **All Icons**: user.svg, key.svg, mail.svg, register_user.svg, arrow_down.svg, course.svg, book.svg, detector.svg, calendar.svg, event_note.svg, home.svg, logout.svg, help.svg
 - **White Icon Filter**: `filter: brightness(0) invert(1);` for modals
 - **Consistent Across All Pages**
 
+## Form Validation Messages
+- **Login Page**: 
+  - "Please enter your Student ID to proceed."
+  - "Please enter your password to continue."
+
+- **Register Step 1**:
+  - "Please provide your first name to continue."
+  - "First name can only contain letters and spaces."
+  - "Please provide your last name to proceed."
+  - "Last name can only contain letters and spaces."
+  - "Middle name can only contain letters and spaces."
+  - "Please provide your email address."
+  - "Please enter a valid email address."
+
+- **Register Step 2**:
+  - "Please enter your Student ID to continue."
+  - "Student ID must follow format: 12-A-12345 (2 digits, hyphen, 1 letter, hyphen, 5 digits)."
+  - "Please select your Year Level."
+  - "Please select your Program."
+
 ## Architecture
-Pure frontend application with no backend. All user data stored in browser's localStorage. Enhanced with image preloading for smooth UX and optional field indicators for better form usability.
+Pure frontend application with no backend. All user data stored in browser's localStorage. Enhanced with professional form validation, image preloading, and SSAAM-branded error messages for optimal user experience.

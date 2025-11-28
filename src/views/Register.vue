@@ -129,7 +129,7 @@
                 </div>
               </div>
               <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Suffix</label>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Suffix <span class="text-gray-500 text-xs">(optional)</span></label>
                 <div class="relative">
                   <select v-model="formData.suffix" class="w-full pl-4 pr-10 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none appearance-none bg-white">
                     <option value="">Select Suffix</option>
@@ -336,7 +336,7 @@
               </div>
             </div>
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Suffix</label>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Suffix <span class="text-gray-500 text-xs">(optional)</span></label>
               <div class="relative">
                 <select v-model="formData.suffix" class="w-full pl-4 pr-10 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none appearance-none bg-white">
                   <option value="">Select Suffix</option>
@@ -673,8 +673,23 @@ const handleNext = async () => {
       showErrorNotification.value = true
       return
     }
+    if (!/^[a-zA-Z\s]+$/.test(formData.first_name)) {
+      errorMessage.value = "First name can only contain letters and spaces."
+      showErrorNotification.value = true
+      return
+    }
+    if (formData.middle_name && !/^[a-zA-Z\s]+$/.test(formData.middle_name)) {
+      errorMessage.value = "Middle name can only contain letters and spaces."
+      showErrorNotification.value = true
+      return
+    }
     if (!formData.last_name || !formData.last_name.trim()) {
       errorMessage.value = "Please provide your last name to proceed."
+      showErrorNotification.value = true
+      return
+    }
+    if (!/^[a-zA-Z\s]+$/.test(formData.last_name)) {
+      errorMessage.value = "Last name can only contain letters and spaces."
       showErrorNotification.value = true
       return
     }
@@ -694,6 +709,11 @@ const handleNext = async () => {
   if (currentStep.value === 2) {
     if (!formData.student_id || !formData.student_id.trim()) {
       errorMessage.value = "Please enter your Student ID to continue."
+      showErrorNotification.value = true
+      return
+    }
+    if (!/^\d{2}-[A-Z]-\d{5}$/.test(formData.student_id)) {
+      errorMessage.value = "Student ID must follow format: 12-A-12345 (2 digits, hyphen, 1 letter, hyphen, 5 digits)."
       showErrorNotification.value = true
       return
     }

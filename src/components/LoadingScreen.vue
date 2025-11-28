@@ -5,7 +5,7 @@
         <img :src="jrmsuLogo" alt="JRMSU CCS Logo" class="w-full h-full object-contain drop-shadow-2xl" />
       </div>
       <div>
-        <h1 class="text-4xl font-bold text-white mb-2">SSAAM LOGO</h1>
+        <h1 class="text-4xl font-bold text-white mb-2">SSAAM</h1>
         <p class="text-lg text-white opacity-90">Student School Activities Attendance Monitoring</p>
       </div>
       <div class="flex gap-2 mt-8">

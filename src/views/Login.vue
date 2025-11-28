@@ -45,7 +45,7 @@
             <img :src="jrmsuLogo" alt="JRMSU CCS Logo" class="w-full h-full object-contain drop-shadow-2xl" />
           </div>
         </div>
-        <h1 class="text-4xl font-bold mb-2">SSAAM LOGO</h1>
+        <h1 class="text-4xl font-bold mb-2">SSAAM</h1>
         <p class="text-sm">Student School Activities Attendance Monitoring</p>
       </div>
       <div class="absolute bottom-4 left-4 right-4 text-center text-xs text-white opacity-75">
@@ -120,7 +120,7 @@
       <div class="w-32 h-32 mx-auto mb-4">
         <img src="/src/assets/jrmsu-logo.webp" alt="JRMSU CCS Logo" class="w-full h-full object-contain drop-shadow-2xl" />
       </div>
-      <h1 class="text-4xl font-bold mb-2">SSAAM LOGO</h1>
+      <h1 class="text-4xl font-bold mb-2">SSAAM</h1>
       <p class="text-lg mb-8">Let's Get Started!</p>
       <p class="text-sm opacity-90">You are a few clicks away from your profile.</p>
       <p class="text-sm opacity-90">Input your JRMSU Student ID to continue.</p>

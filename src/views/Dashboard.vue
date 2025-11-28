@@ -14,6 +14,58 @@
     </div>
   </div>
 
+  <!-- Contact Modal -->
+  <div v-if="showContactModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" @click.self="showContactModal = false">
+    <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4">
+      <div class="flex justify-between items-center mb-6">
+        <h3 class="text-2xl font-bold text-purple-900">Need Help?</h3>
+        <button @click="showContactModal = false" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+      </div>
+      
+      <div class="space-y-4">
+        <div class="flex items-start gap-4 p-4 bg-purple-50 rounded-lg">
+          <span class="text-2xl">📧</span>
+          <div>
+            <p class="font-semibold text-purple-900">Email Support</p>
+            <p class="text-sm text-gray-600">admin@ssaam.edu</p>
+            <p class="text-xs text-gray-500 mt-1">For general inquiries</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4 p-4 bg-pink-50 rounded-lg">
+          <span class="text-2xl">🏫</span>
+          <div>
+            <p class="font-semibold text-purple-900">JRMSU CCS Office</p>
+            <p class="text-sm text-gray-600">College of Computer Studies</p>
+            <p class="text-xs text-gray-500 mt-1">Visit during office hours</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4 p-4 bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg">
+          <span class="text-2xl">👥</span>
+          <div>
+            <p class="font-semibold text-purple-900">Meet Our Developers</p>
+            <p class="text-sm text-gray-600">CCS - Creatives Committee</p>
+            <button @click="showDevelopersPopup = true; showContactModal = false" class="text-xs text-purple-600 hover:text-purple-800 font-medium mt-2 underline">View Team →</button>
+          </div>
+        </div>
+
+        <div class="bg-blue-50 rounded-lg p-4">
+          <p class="text-sm text-blue-900 font-medium mb-3">Quick Help</p>
+          <ul class="text-xs text-blue-800 space-y-2">
+            <li>• Login issues? Use your Student ID and password</li>
+            <li>• RFID not working? Contact the CCS office</li>
+            <li>• Profile problems? Check your information is complete</li>
+          </ul>
+        </div>
+      </div>
+
+      <button @click="showContactModal = false" class="w-full mt-6 bg-gradient-to-r from-purple-600 to-pink-500 text-white py-2 px-4 rounded-lg font-medium hover:from-purple-700 hover:to-pink-600 transition">
+        Close
+      </button>
+    </div>
+  </div>
+
   <div v-if="showDevelopersPopup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" @click.self="showDevelopersPopup = false">
     <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-lg w-full mx-4">
       <div class="flex justify-between items-center mb-6">
@@ -152,7 +204,17 @@
       <!-- Mobile Header with Hamburger Menu -->
       <div class="md:hidden sticky top-0 bg-white border-b border-gray-200 p-4 flex items-center justify-between z-20 shadow">
         <h1 class="text-xl font-bold text-purple-900">SSAAM</h1>
-        <button @click="showMobileMenu = true" class="text-2xl text-purple-900 hover:text-purple-700">☰</button>
+        <div class="flex items-center gap-2">
+          <button @click="showContactModal = true" class="text-lg text-purple-900 hover:text-purple-700 px-2">❓</button>
+          <button @click="showMobileMenu = true" class="text-2xl text-purple-900 hover:text-purple-700">☰</button>
+        </div>
+      </div>
+
+      <!-- Desktop Help Button (top right) -->
+      <div class="hidden md:block fixed top-4 right-4 z-20">
+        <button @click="showContactModal = true" class="bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl hover:from-purple-700 hover:to-pink-600 transition shadow-lg">
+          ❓
+        </button>
       </div>
 
       <div class="p-4 md:p-8">
@@ -279,6 +341,7 @@ const sidebarImageLoading = ref(false)
 const showDevelopersPopup = ref(false)
 const showLogoutConfirmation = ref(false)
 const showMobileMenu = ref(false)
+const showContactModal = ref(false)
 
   const developers = [
     { name: 'Jullan Maglinte', initials: 'JM', role: 'Backend Dev', facebook: 'https://facebook.com/jullan.maglinte', image: '' },

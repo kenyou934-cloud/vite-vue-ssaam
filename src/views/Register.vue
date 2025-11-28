@@ -69,7 +69,7 @@
             <img :src="jrmsuLogo" alt="JRMSU CCS Logo" class="w-full h-full object-contain drop-shadow-2xl" />
           </div>
         </div>
-        <h1 class="text-4xl font-bold mb-2">SSAAM LOGO</h1>
+        <h1 class="text-4xl font-bold mb-2">SSAAM</h1>
         <p class="text-sm">Student School Activities Attendance Monitoring</p>
       </div>
       <div class="absolute bottom-4 left-4 right-4 text-center text-xs text-white opacity-75">

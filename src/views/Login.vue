@@ -150,7 +150,7 @@
             </button>
 
             <div class="text-center text-sm text-gray-600">
-              <button @click="showContactModal = true" class="text-purple-600 hover:text-purple-700 inline-flex items-center gap-1 font-medium">
+              <button type="button" @click="showContactModal = true" class="text-purple-600 hover:text-purple-700 inline-flex items-center gap-1 font-medium">
                 <img src="/help.svg" alt="Help" class="w-4 h-4" />
                 Need help?
               </button>
@@ -223,7 +223,7 @@
           </button>
 
           <div class="text-center text-sm text-gray-600">
-            <button @click="showContactModal = true" class="text-purple-600 hover:text-purple-700 inline-flex items-center gap-1 font-medium">
+            <button type="button" @click="showContactModal = true" class="text-purple-600 hover:text-purple-700 inline-flex items-center gap-1 font-medium">
               <img src="/help.svg" alt="Help" class="w-4 h-4" />
               Need help?
             </button>

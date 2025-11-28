@@ -48,8 +48,10 @@
     </div>
   </div>
 
-  <!-- Mobile Menu Overlay -->
-  <div v-if="showMobileMenu" class="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden" @click="showMobileMenu = false"></div>
+  <!-- Mobile Menu Overlay with Animation -->
+  <transition name="fade">
+    <div v-if="showMobileMenu" class="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden" @click="showMobileMenu = false"></div>
+  </transition>
 
   <div class="flex h-screen flex-col md:flex-row">
     <!-- Sidebar (Hidden on mobile, visible on desktop) -->
@@ -100,48 +102,50 @@
       </div>
     </div>
 
-    <!-- Mobile Sidebar (Slide-in menu for mobile) -->
-    <div v-if="showMobileMenu" class="fixed left-0 top-0 h-screen w-64 bg-gradient-to-b from-purple-600 to-pink-400 text-white flex flex-col z-40 md:hidden shadow-2xl">
-      <button @click="showMobileMenu = false" class="p-4 text-right text-2xl hover:text-gray-200">×</button>
-      
-      <div class="p-6 border-b border-white border-opacity-20">
-        <div class="flex items-center space-x-3">
-          <div class="w-12 h-12 rounded-full bg-white bg-opacity-30 flex items-center justify-center text-2xl overflow-hidden">
-            <div v-if="sidebarImageLoading" class="w-full h-full flex items-center justify-center">
-              <svg class="animate-spin h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-              </svg>
+    <!-- Mobile Sidebar (Slide-in menu for mobile) with Animation -->
+    <transition name="slide-in">
+      <div v-if="showMobileMenu" class="fixed left-0 top-0 h-screen w-64 bg-gradient-to-b from-purple-600 to-pink-400 text-white flex flex-col z-40 md:hidden shadow-2xl">
+        <button @click="showMobileMenu = false" class="p-4 text-right text-2xl hover:text-gray-200">×</button>
+        
+        <div class="p-6 border-b border-white border-opacity-20">
+          <div class="flex items-center space-x-3">
+            <div class="w-12 h-12 rounded-full bg-white bg-opacity-30 flex items-center justify-center text-2xl overflow-hidden">
+              <div v-if="sidebarImageLoading" class="w-full h-full flex items-center justify-center">
+                <svg class="animate-spin h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+              </div>
+              <img v-else-if="currentUser.image || currentUser.photo" :src="currentUser.image || currentUser.photo" alt="Profile" class="w-full h-full object-cover" @load="sidebarImageLoading = false" @error="sidebarImageLoading = false" />
+              <span v-else>👤</span>
             </div>
-            <img v-else-if="currentUser.image || currentUser.photo" :src="currentUser.image || currentUser.photo" alt="Profile" class="w-full h-full object-cover" @load="sidebarImageLoading = false" @error="sidebarImageLoading = false" />
-            <span v-else>👤</span>
-          </div>
-          <div>
-            <p class="text-sm">Welcome back,</p>
-            <p class="font-bold">{{ displayName }}!</p>
+            <div>
+              <p class="text-sm">Welcome back,</p>
+              <p class="font-bold">{{ displayName }}!</p>
+            </div>
           </div>
         </div>
-      </div>
 
-      <nav class="flex-1 p-4">
-        <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-white bg-opacity-20 mb-2">
-          <span>🏠</span>
-          <span>Dashboard</span>
-        </a>
-        <button 
-          @click="handleLogout"
-          class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-white hover:bg-opacity-10 w-full text-left"
-        >
-          <span>🚪</span>
-          <span>Log Out</span>
-        </button>
-      </nav>
+        <nav class="flex-1 p-4">
+          <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-white bg-opacity-20 mb-2">
+            <span>🏠</span>
+            <span>Dashboard</span>
+          </a>
+          <button 
+            @click="handleLogout"
+            class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-white hover:bg-opacity-10 w-full text-left"
+          >
+            <span>🚪</span>
+            <span>Log Out</span>
+          </button>
+        </nav>
 
-      <div class="p-4 text-xs text-white opacity-75">
-        <p>Powered by</p>
-        <button @click="showDevelopersPopup = true" class="text-yellow-300 hover:text-yellow-400 cursor-pointer">CCS - Creatives Committee</button>
+        <div class="p-4 text-xs text-white opacity-75">
+          <p>Powered by</p>
+          <button @click="showDevelopersPopup = true" class="text-yellow-300 hover:text-yellow-400 cursor-pointer">CCS - Creatives Committee</button>
+        </div>
       </div>
-    </div>
+    </transition>
 
     <!-- Main Content Area -->
     <div class="flex-1 bg-gray-100 overflow-auto order-2 md:order-2">

@@ -172,14 +172,14 @@
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">RFID Code</label>
                 <div class="relative">
-                  <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">📡</span>
+                  <img src="/detector.svg" alt="RFID Code" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5" />
                   <input v-model="formData.rfid_code" type="text" placeholder="12345678" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" required />
                 </div>
               </div>
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Year Level</label>
                 <div class="relative">
-                  <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">🎓</span>
+                  <img src="/book.svg" alt="Year Level" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5" />
                   <select v-model="formData.year_level" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none appearance-none bg-white" required>
                     <option value="" disabled>Select Year Level</option>
                     <option value="1st year">1st year</option>
@@ -205,7 +205,7 @@
                 <div>
                   <label class="block text-sm font-medium text-gray-700 mb-2">Semester</label>
                   <div class="relative">
-                    <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xs">📅</span>
+                    <img src="/calendar.svg" alt="Semester" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4" />
                     <select v-model="formData.semester" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none appearance-none bg-white text-sm" required>
                       <option value="" disabled>Semester</option>
                       <option value="1st">1st</option>
@@ -379,14 +379,14 @@
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">RFID Code</label>
               <div class="relative">
-                <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">📡</span>
+                <img src="/detector.svg" alt="RFID Code" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5" />
                 <input v-model="formData.rfid_code" type="text" placeholder="12345678" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" required />
               </div>
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">Year Level</label>
               <div class="relative">
-                <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">🎓</span>
+                <img src="/book.svg" alt="Year Level" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5" />
                 <select v-model="formData.year_level" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none appearance-none bg-white" required>
                   <option value="" disabled>Select Year Level</option>
                   <option value="1st year">1st year</option>
@@ -412,7 +412,7 @@
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Semester</label>
                 <div class="relative">
-                  <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xs">📅</span>
+                  <img src="/calendar.svg" alt="Semester" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4" />
                   <select v-model="formData.semester" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none appearance-none bg-white text-sm" required>
                     <option value="" disabled>Semester</option>
                     <option value="1st">1st</option>

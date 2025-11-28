@@ -100,7 +100,7 @@
               Log In
             </button>
             <button class="flex-1 py-3 px-4 text-center font-medium border-b-2 border-purple-600 text-purple-600 flex items-center justify-center gap-1">
-              <span>👤</span> Register
+              <img src="/register_user.svg" alt="Register" class="w-5 h-5" /> Register
             </button>
           </div>
 
@@ -192,7 +192,7 @@
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Program</label>
                 <div class="relative">
-                  <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">📚</span>
+                  <img src="/course.svg" alt="Program" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5" />
                   <select v-model="formData.program" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none appearance-none bg-white" required>
                     <option value="" disabled>Select Program</option>
                     <option value="BSCS">BSCS</option>
@@ -307,7 +307,7 @@
             Log In
           </button>
           <button class="flex-1 py-3 px-4 text-center font-medium rounded-md bg-white text-purple-600 shadow-sm flex items-center justify-center gap-1">
-            <span>👤</span> Register
+            <img src="/register_user.svg" alt="Register" class="w-5 h-5" /> Register
           </button>
         </div>
 
@@ -399,7 +399,7 @@
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">Program</label>
               <div class="relative">
-                <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">📚</span>
+                <img src="/course.svg" alt="Program" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5" />
                 <select v-model="formData.program" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none appearance-none bg-white" required>
                   <option value="" disabled>Select Program</option>
                   <option value="BSCS">BSCS</option>

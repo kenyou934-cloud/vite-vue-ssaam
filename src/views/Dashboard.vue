@@ -136,7 +136,7 @@
 
       <nav class="flex-1 p-4">
         <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-white bg-opacity-20 mb-2">
-          <span>🏠</span>
+          <img src="/home.svg" alt="Dashboard" class="w-5 h-5 invert" />
           <span>Dashboard</span>
         </a>
         <button 
@@ -180,7 +180,7 @@
 
         <nav class="flex-1 p-4">
           <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-white bg-opacity-20 mb-2">
-            <span>🏠</span>
+            <img src="/home.svg" alt="Dashboard" class="w-5 h-5 invert" />
             <span>Dashboard</span>
           </a>
           <button 

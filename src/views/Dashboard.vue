@@ -48,8 +48,12 @@
     </div>
   </div>
 
+  <!-- Mobile Menu Overlay -->
+  <div v-if="showMobileMenu" class="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden" @click="showMobileMenu = false"></div>
+
   <div v-else class="flex h-screen flex-col md:flex-row">
-    <div class="w-full md:w-64 bg-gradient-to-b from-purple-600 to-pink-400 text-white flex flex-col order-2 md:order-1 border-t-2 md:border-t-0 md:border-r-2 border-white border-opacity-20">
+    <!-- Sidebar (Hidden on mobile, visible on desktop) -->
+    <div class="hidden md:flex w-64 bg-gradient-to-b from-purple-600 to-pink-400 text-white flex-col order-1 border-r-2 border-white border-opacity-20">
       <div class="p-6 border-b border-white border-opacity-20">
         <div class="flex items-center justify-center mb-2">
           <img src="/src/assets/jrmsu-logo.webp" alt="JRMSU CCS Logo" class="w-32 h-32 object-contain drop-shadow-xl" />
@@ -96,9 +100,59 @@
       </div>
     </div>
 
-    <div class="flex-1 bg-gray-100 overflow-auto order-1 md:order-2">
+    <!-- Mobile Sidebar (Slide-in menu for mobile) -->
+    <div v-if="showMobileMenu" class="fixed left-0 top-0 h-screen w-64 bg-gradient-to-b from-purple-600 to-pink-400 text-white flex flex-col z-40 md:hidden shadow-2xl">
+      <button @click="showMobileMenu = false" class="p-4 text-right text-2xl hover:text-gray-200">×</button>
+      
+      <div class="p-6 border-b border-white border-opacity-20">
+        <div class="flex items-center space-x-3">
+          <div class="w-12 h-12 rounded-full bg-white bg-opacity-30 flex items-center justify-center text-2xl overflow-hidden">
+            <div v-if="sidebarImageLoading" class="w-full h-full flex items-center justify-center">
+              <svg class="animate-spin h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+            </div>
+            <img v-else-if="currentUser.image || currentUser.photo" :src="currentUser.image || currentUser.photo" alt="Profile" class="w-full h-full object-cover" @load="sidebarImageLoading = false" @error="sidebarImageLoading = false" />
+            <span v-else>👤</span>
+          </div>
+          <div>
+            <p class="text-sm">Welcome back,</p>
+            <p class="font-bold">{{ displayName }}!</p>
+          </div>
+        </div>
+      </div>
+
+      <nav class="flex-1 p-4">
+        <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-white bg-opacity-20 mb-2">
+          <span>🏠</span>
+          <span>Dashboard</span>
+        </a>
+        <button 
+          @click="handleLogout"
+          class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-white hover:bg-opacity-10 w-full text-left"
+        >
+          <span>🚪</span>
+          <span>Log Out</span>
+        </button>
+      </nav>
+
+      <div class="p-4 text-xs text-white opacity-75">
+        <p>Powered by</p>
+        <button @click="showDevelopersPopup = true" class="text-yellow-300 hover:text-yellow-400 cursor-pointer">CCS - Creatives Committee</button>
+      </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="flex-1 bg-gray-100 overflow-auto order-2 md:order-2">
+      <!-- Mobile Header with Hamburger Menu -->
+      <div class="md:hidden sticky top-0 bg-white border-b border-gray-200 p-4 flex items-center justify-between z-20 shadow">
+        <h1 class="text-xl font-bold text-purple-900">SSAAM</h1>
+        <button @click="showMobileMenu = true" class="text-2xl text-purple-900 hover:text-purple-700">☰</button>
+      </div>
+
       <div class="p-4 md:p-8">
-        <h1 class="text-2xl md:text-4xl font-bold text-purple-900 mb-8 pb-4 border-b-2 border-purple-900">Dashboard</h1>
+        <h1 class="hidden md:block text-2xl md:text-4xl font-bold text-purple-900 mb-8 pb-4 border-b-2 border-purple-900">Dashboard</h1>
 
         <div v-if="currentUser.role !== 'admin'" class="bg-white rounded-lg shadow-lg p-4 md:p-8 mb-8">
           <h2 class="text-xl md:text-2xl font-bold text-purple-900 mb-6">My Profile</h2>
@@ -220,6 +274,7 @@ const profileImageLoading = ref(false)
 const sidebarImageLoading = ref(false)
 const showDevelopersPopup = ref(false)
 const showLogoutConfirmation = ref(false)
+const showMobileMenu = ref(false)
 
 const developers = [
   { name: 'Jullan Maglinte', initials: 'JM', role: 'Backend Dev', facebook: 'https://facebook.com', image: '' },

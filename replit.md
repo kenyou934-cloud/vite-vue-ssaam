@@ -32,6 +32,12 @@ The application is configured to run on Replit with:
 - Static deployment configuration for production
 
 ## Recent Changes
+- 2025-11-28: Admin security fix and developers popup feature
+  - Fixed admin display name to hide last name (password) in Dashboard
+  - Admin now shows only first name or 'Administrator' as fallback
+  - Added "Meet Our Developers" popup in Login.vue, Register.vue, and Dashboard.vue
+  - Clicking "CCS - Creatives Committee" shows popup with 5 developer profiles (2 backend, 2 frontend, 1 UI/UX designer)
+
 - 2024-11-28: Initial import and Replit environment setup
   - Installed npm dependencies
   - Configured workflow for dev server

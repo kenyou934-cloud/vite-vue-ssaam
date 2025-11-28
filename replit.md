@@ -32,6 +32,14 @@ The application is configured to run on Replit with:
 - Static deployment configuration for production
 
 ## Recent Changes
+- 2025-11-28: Styled notifications and anti-copy protection
+  - Replaced all alert() dialogs with styled error notification modals
+  - Error modals use red "Oops!" header matching app's purple/pink gradient theme
+  - Added comprehensive anti-copy protection:
+    - Disabled text/image selection globally via CSS (user-select: none)
+    - Blocked right-click context menu and copy keyboard shortcuts (Ctrl+C, Ctrl+A, Ctrl+X)
+    - Form inputs (input/textarea/select) preserved with normal text selection
+
 - 2025-11-28: Admin security fix and developers popup feature
   - Fixed admin display name to hide last name (password) in Dashboard
   - Admin now shows only first name or 'Administrator' as fallback

@@ -80,7 +80,9 @@
       <div class="w-full max-w-md">
         <div class="text-center mb-8">
           <div class="flex items-start justify-center gap-4 mb-4">
-            <div class="text-5xl">👤➕</div>
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-600 to-pink-400 flex items-center justify-center">
+              <img src="/register_user.svg" alt="Register" class="w-7 h-7" style="filter: invert(100%);" />
+            </div>
             <div class="text-left pt-2">
               <h2 class="text-2xl font-bold text-purple-900">Let's Create</h2>
               <h2 class="text-2xl font-bold text-purple-900">Your Profile!</h2>
@@ -163,7 +165,7 @@
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Student ID</label>
                 <div class="relative">
-                  <img src="/register_user.svg" alt="Student ID" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5" />
+                  <img src="/user.svg" alt="Student ID" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5" />
                   <input v-model="formData.student_id" type="text" placeholder="25-A-12345" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" required />
                 </div>
               </div>
@@ -287,7 +289,7 @@
 
     <div class="text-center text-white pt-12 pb-8 px-4 relative z-10">
       <div v-if="currentStep !== 3" class="w-16 h-16 mx-auto mb-4 rounded-full bg-white bg-opacity-20 flex items-center justify-center">
-        <span class="text-4xl">👤+</span>
+        <img src="/register_user.svg" alt="Register" class="w-10 h-10" style="filter: invert(100%);" />
       </div>
       <h1 class="text-3xl font-bold mb-2">Let's Create</h1>
       <h2 class="text-3xl font-bold mb-4">Your Profile!</h2>

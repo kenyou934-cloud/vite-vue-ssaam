@@ -24,9 +24,59 @@ import jrmsuLogo from '../assets/jrmsu-logo.webp'
 
 const router = useRouter()
 
-onMounted(() => {
+// List of all images to preload
+const imagesToPreload = [
+  '/user.svg',
+  '/key.svg',
+  '/mail.svg',
+  '/register_user.svg',
+  '/arrow_down.svg',
+  '/course.svg',
+  '/book.svg',
+  '/detector.svg',
+  '/calendar.svg',
+  '/event_note.svg',
+  '/home.svg',
+  '/logout.svg',
+  '/help.svg',
+  '/visibility_on.svg',
+  '/visibility_off.svg',
+  '/classroom-bg.jpg',
+  jrmsuLogo
+]
+
+const preloadImages = () => {
+  return Promise.all(
+    imagesToPreload.map(
+      (imageSrc) =>
+        new Promise((resolve) => {
+          const img = new Image()
+          img.onload = resolve
+          img.onerror = resolve // Resolve on error too, so we don't wait indefinitely
+          img.src = imageSrc
+        })
+    )
+  )
+}
+
+onMounted(async () => {
+  // Preload all images before proceeding
+  await preloadImages()
+  
+  // Give a small buffer to ensure rendering is complete
   setTimeout(() => {
     router.push('/')
-  }, 2000)
+  }, 500)
 })
 </script>
+
+<style>
+.loading-screen {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+</style>

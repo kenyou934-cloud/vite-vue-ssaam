@@ -115,7 +115,7 @@
                 </div>
               </div>
               <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Middle Name</label>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Middle Name <span class="text-gray-500 text-xs">(optional)</span></label>
                 <div class="relative">
                   <img src="/user.svg" alt="Middle Name" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5" />
                   <input v-model="formData.middle_name" type="text" placeholder="Dela" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" />
@@ -170,7 +170,7 @@
                 </div>
               </div>
               <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">RFID Code</label>
+                <label class="block text-sm font-medium text-gray-700 mb-2">RFID Code <span class="text-gray-500 text-xs">(optional)</span></label>
                 <div class="relative">
                   <img src="/detector.svg" alt="RFID Code" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5" />
                   <input v-model="formData.rfid_code" type="text" placeholder="12345678" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" required />
@@ -322,7 +322,7 @@
               </div>
             </div>
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Middle Name</label>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Middle Name <span class="text-gray-500 text-xs">(optional)</span></label>
               <div class="relative">
                 <img src="/user.svg" alt="Middle Name" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5" />
                 <input v-model="formData.middle_name" type="text" placeholder="Dela" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" />
@@ -377,7 +377,7 @@
               </div>
             </div>
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">RFID Code</label>
+              <label class="block text-sm font-medium text-gray-700 mb-2">RFID Code <span class="text-gray-500 text-xs">(optional)</span></label>
               <div class="relative">
                 <img src="/detector.svg" alt="RFID Code" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5" />
                 <input v-model="formData.rfid_code" type="text" placeholder="12345678" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" required />

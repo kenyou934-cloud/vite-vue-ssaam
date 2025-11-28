@@ -1,4 +1,26 @@
 <template>
+  <div v-if="showDevelopersPopup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" @click.self="showDevelopersPopup = false">
+    <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-lg w-full mx-4">
+      <div class="flex justify-between items-center mb-6">
+        <h3 class="text-2xl font-bold text-purple-900">Meet Our Developers</h3>
+        <button @click="showDevelopersPopup = false" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+      </div>
+      <div class="grid grid-cols-5 gap-4 mb-6">
+        <div v-for="dev in developers" :key="dev.name" class="flex flex-col items-center">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-pink-400 flex items-center justify-center text-white text-2xl shadow-lg mb-2">
+            {{ dev.initials }}
+          </div>
+          <p class="text-xs font-semibold text-gray-800 text-center">{{ dev.name }}</p>
+          <p class="text-xs text-purple-600 text-center">{{ dev.role }}</p>
+        </div>
+      </div>
+      <div class="text-center text-sm text-gray-600">
+        <p class="font-medium text-purple-900">CCS - Creatives Committee</p>
+        <p>Chairperson: Sheen Lee</p>
+      </div>
+    </div>
+  </div>
+
   <div v-if="isRegistering" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
     <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-sm w-full mx-4 text-center">
       <svg class="animate-spin h-16 w-16 mx-auto mb-4 text-purple-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -238,7 +260,7 @@
           </form>
 
           <div class="mt-6 text-center text-xs text-gray-500">
-            Powered by <span class="text-yellow-500 font-medium">CCS - Creatives Committee</span>
+            Powered by <button @click="showDevelopersPopup = true" class="text-yellow-500 font-medium hover:text-yellow-600 cursor-pointer">CCS - Creatives Committee</button>
           </div>
         </div>
       </div>
@@ -445,7 +467,7 @@
         </form>
 
         <div class="mt-8 text-center text-xs text-gray-500">
-          Powered by <span class="text-yellow-500 font-medium">CCS - Creatives Committee</span>
+          Powered by <button @click="showDevelopersPopup = true" class="text-yellow-500 font-medium hover:text-yellow-600 cursor-pointer">CCS - Creatives Committee</button>
         </div>
 
         <div class="mt-4 text-center text-xs text-gray-400">
@@ -464,6 +486,15 @@ import jrmsuLogo from '../assets/jrmsu-logo.webp'
 const router = useRouter()
 const currentStep = ref(1)
 const imagePreview = ref('')
+const showDevelopersPopup = ref(false)
+
+const developers = [
+  { name: 'Dev 1', initials: 'BE', role: 'Backend Dev' },
+  { name: 'Dev 2', initials: 'BE', role: 'Backend Dev' },
+  { name: 'Dev 3', initials: 'FE', role: 'Frontend Dev' },
+  { name: 'Dev 4', initials: 'FE', role: 'Frontend Dev' },
+  { name: 'Dev 5', initials: 'UX', role: 'UI/UX Designer' }
+]
 
 const formData = reactive({
   student_id: '',

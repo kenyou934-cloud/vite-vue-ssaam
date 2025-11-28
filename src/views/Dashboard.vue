@@ -226,9 +226,15 @@
 
         <!-- User Management Page -->
         <div v-if="currentPage === 'users' && currentUser.role === 'admin'" class="bg-white rounded-lg shadow-lg p-4 md:p-8">
-          <div class="flex justify-between items-center mb-6">
+          <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
             <h2 class="text-xl md:text-2xl font-bold text-purple-900">Manage Users</h2>
-            <span class="text-sm text-gray-600">Total: {{ users.length }} users</span>
+            <div class="w-full md:w-auto flex gap-3">
+              <div class="flex-1 md:flex-none relative">
+                <img src="/user.svg" alt="Search" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5" />
+                <input v-model="searchQuery" type="text" placeholder="Search by name or ID..." class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none text-sm" />
+              </div>
+              <span class="text-sm text-gray-600 whitespace-nowrap">Total: {{ filteredUsers.length }} users</span>
+            </div>
           </div>
 
           <div class="overflow-x-auto">
@@ -244,7 +250,10 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="user in users" :key="user.studentId || user.student_id" class="hover:bg-gray-50">
+                <tr v-if="filteredUsers.length === 0" class="hover:bg-gray-50">
+                  <td colspan="6" class="border border-purple-300 px-4 py-8 text-center text-gray-600">No users found matching your search.</td>
+                </tr>
+                <tr v-for="user in filteredUsers" :key="user.studentId || user.student_id" class="hover:bg-gray-50">
                   <td class="border border-purple-300 px-4 py-3 text-gray-700">{{ user.studentId || user.student_id }}</td>
                   <td class="border border-purple-300 px-4 py-3 text-gray-700">{{ (user.firstName || user.first_name) }} {{ (user.lastName || user.last_name) }}</td>
                   <td class="border border-purple-300 px-4 py-3 text-gray-700">{{ user.email }}</td>
@@ -448,6 +457,7 @@ const showEditModal = ref(false)
 const showDeleteConfirm = ref(false)
 const editingUser = ref(null)
 const userToDelete = ref(null)
+const searchQuery = ref('')
 
   const developers = [
     { name: 'Jullan Maglinte', initials: 'JM', role: 'Backend Dev', facebook: 'https://facebook.com/jullan.maglinte', image: '' },
@@ -526,6 +536,20 @@ const stats = computed(() => {
 
 const totalStudents = computed(() => {
   return stats.value.BSCS.total + stats.value.BSIS.total + stats.value.BSIT.total
+})
+
+const filteredUsers = computed(() => {
+  if (!searchQuery.value.trim()) {
+    return users.value
+  }
+  const query = searchQuery.value.toLowerCase()
+  return users.value.filter(user => {
+    const studentId = (user.studentId || user.student_id || '').toLowerCase()
+    const firstName = (user.firstName || user.first_name || '').toLowerCase()
+    const lastName = (user.lastName || user.last_name || '').toLowerCase()
+    const fullName = `${firstName} ${lastName}`.toLowerCase()
+    return studentId.includes(query) || firstName.includes(query) || lastName.includes(query) || fullName.includes(query)
+  })
 })
 
 const handleLogout = () => {

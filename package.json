@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "next-cloudinary": "^6.17.5",
     "vue": "^3.4.0",
     "vue-router": "^4.2.0"
   },

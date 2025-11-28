@@ -541,26 +541,35 @@ const handleImageUpload = async (event) => {
   formData.photo = "";
 
   try {
-    const apiKey = "b6a37178abd163036357a7ba35fd0364";
-    const form = new FormData();
-    form.append("key", apiKey);
-    form.append("image", file);
+    const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME || 'demo';
+    const uploadPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET || 'unsigned_upload';
+    
+    const formData_upload = new FormData();
+    formData_upload.append('file', file);
+    formData_upload.append('upload_preset', uploadPreset);
+    formData_upload.append('resource_type', 'auto');
+    formData_upload.append('quality', 'auto');
+    formData_upload.append('fetch_format', 'auto');
 
-    const res = await fetch("https://api.imgbb.com/1/upload", {
+    const res = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
       method: "POST",
-      body: form,
+      body: formData_upload,
     });
 
     const data = await res.json();
 
-    if (data.success) {
-      formData.photo = data.data.url;
+    if (data.secure_url) {
+      formData.photo = data.secure_url;
       console.log("Uploaded Image URL:", formData.photo);
     } else {
       console.error("Image upload failed:", data);
+      errorMessage.value = "Image upload failed. Please check Cloudinary configuration.";
+      showErrorNotification.value = true;
     }
   } catch (error) {
     console.error("Upload error:", error);
+    errorMessage.value = "Image upload error. Please try again.";
+    showErrorNotification.value = true;
   }
 
   isUploading.value = false;

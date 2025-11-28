@@ -526,6 +526,85 @@ const formData = reactive({
 
 const isUploading = ref(false);
 
+// Compress image to 1MB or below while maintaining quality
+const compressImage = (file) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    
+    reader.onload = (event) => {
+      const img = new Image();
+      
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        let width = img.width;
+        let height = img.height;
+        
+        // Calculate dimensions to maintain aspect ratio
+        const maxWidth = 1920;
+        const maxHeight = 1920;
+        
+        if (width > height) {
+          if (width > maxWidth) {
+            height = Math.round((height * maxWidth) / width);
+            width = maxWidth;
+          }
+        } else {
+          if (height > maxHeight) {
+            width = Math.round((width * maxHeight) / height);
+            height = maxHeight;
+          }
+        }
+        
+        canvas.width = width;
+        canvas.height = height;
+        
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, width, height);
+        
+        // Try compression with decreasing quality until under 1MB
+        let quality = 0.9;
+        let compressedBlob;
+        let attempts = 0;
+        const maxAttempts = 10;
+        
+        const tryCompress = () => {
+          if (attempts >= maxAttempts) {
+            canvas.toBlob(resolve, 'image/jpeg', 0.3); // Final fallback
+            return;
+          }
+          
+          canvas.toBlob((blob) => {
+            const sizeInMB = blob.size / (1024 * 1024);
+            console.log(`Compression attempt ${attempts + 1}: ${sizeInMB.toFixed(2)}MB at quality ${quality}`);
+            
+            if (sizeInMB <= 1) {
+              resolve(blob);
+            } else {
+              quality -= 0.08;
+              attempts++;
+              if (quality >= 0.1) {
+                tryCompress();
+              } else {
+                resolve(blob); // Use best available
+              }
+            }
+          }, 'image/jpeg', quality);
+        };
+        
+        tryCompress();
+      };
+      
+      img.onerror = () => reject(new Error('Failed to load image'));
+      img.src = event.target.result;
+    };
+    
+    reader.onerror = () => reject(new Error('Failed to read file'));
+    reader.readAsDataURL(file);
+  });
+};
+
 const handleImageUpload = async (event) => {
   const file = event.target.files[0];
   if (!file) return;
@@ -541,29 +620,30 @@ const handleImageUpload = async (event) => {
   formData.photo = "";
 
   try {
-    const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME || 'demo';
-    const uploadPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET || 'unsigned_upload';
+    // Compress image to 1MB or below
+    const compressedBlob = await compressImage(file);
+    const sizeInMB = (compressedBlob.size / (1024 * 1024)).toFixed(2);
+    console.log(`Final compressed image size: ${sizeInMB}MB`);
     
-    const formData_upload = new FormData();
-    formData_upload.append('file', file);
-    formData_upload.append('upload_preset', uploadPreset);
-    formData_upload.append('resource_type', 'auto');
-    formData_upload.append('quality', 'auto');
-    formData_upload.append('fetch_format', 'auto');
+    // Upload compressed image to imgbb
+    const apiKey = "b6a37178abd163036357a7ba35fd0364";
+    const uploadForm = new FormData();
+    uploadForm.append("key", apiKey);
+    uploadForm.append("image", compressedBlob, "photo.jpg");
 
-    const res = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+    const res = await fetch("https://api.imgbb.com/1/upload", {
       method: "POST",
-      body: formData_upload,
+      body: uploadForm,
     });
 
     const data = await res.json();
 
-    if (data.secure_url) {
-      formData.photo = data.secure_url;
+    if (data.success) {
+      formData.photo = data.data.url;
       console.log("Uploaded Image URL:", formData.photo);
     } else {
       console.error("Image upload failed:", data);
-      errorMessage.value = "Image upload failed. Please check Cloudinary configuration.";
+      errorMessage.value = "Image upload failed. Please try again.";
       showErrorNotification.value = true;
     }
   } catch (error) {

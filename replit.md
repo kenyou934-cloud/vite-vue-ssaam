@@ -32,6 +32,14 @@ The application is configured to run on Replit with:
 - Static deployment configuration for production
 
 ## Recent Changes
+- 2025-11-28: Image compression before upload
+  - Added client-side image compression using Canvas API
+  - Images automatically compressed to 1MB or below before uploading to imgbb
+  - Smart quality reduction: starts at 0.9 quality and decreases by 0.08 per attempt
+  - Maintains aspect ratio and maximum 1920x1920 dimensions
+  - Seamless: compression happens transparently without user interaction
+  - No additional dependencies required
+
 - 2025-11-28: Styled notifications and anti-copy protection
   - Replaced all alert() dialogs with styled error notification modals
   - Error modals use red "Oops!" header matching app's purple/pink gradient theme

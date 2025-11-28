@@ -23,6 +23,8 @@ A Vue 3 + Vite frontend application for monitoring student attendance at school 
 - Optional field labels for better UX
 - Advanced form validation with custom error messages
 - RED error notifications for clear error visibility
+- **Admin User Management** - Edit and delete user accounts
+- Team member photos in developer popup
 
 ## Configuration
 - **Dev Server**: Port 5000, host 0.0.0.0
@@ -39,6 +41,19 @@ The application is configured to run on Replit with:
 - Static deployment configuration for production
 
 ## Latest Updates (2025-11-28)
+
+### Admin User Management (NEW)
+- **User List**: Admin can view all registered users in a table format
+- **Edit User**: Click "Edit" button to modify user details (name, email, program, year level)
+- **Delete User**: Click "Delete" button with confirmation modal to remove users
+- **Menu Item**: "User Management" appears in sidebar only for admin users
+- **Storage**: Changes are saved to localStorage
+- **Desktop & Mobile**: Full responsive design with mobile menu support
+
+### Kenzen's Photo
+- **Developer Profile**: Kenzen's photo displays in "Meet Our Developers" from `/team/kenzen.jpg`
+- **Fallback System**: Other developers show initials when photos aren't available yet
+- **Ready for Expansion**: Other team members' photos can be added to `public/team/` folder
 
 ### RED Error Notifications
 - **Error Modal Styling**: Red border, red heading, red message text
@@ -68,6 +83,7 @@ The application is configured to run on Replit with:
 - **All Icons**: user.svg, key.svg, mail.svg, register_user.svg, arrow_down.svg, course.svg, book.svg, detector.svg, calendar.svg, event_note.svg, home.svg, logout.svg, help.svg
 - **White Icon Filter**: `filter: brightness(0) invert(1);` for modals
 - **Consistent Across All Pages**
+- **Mobile Icons**: All icons properly displayed in white on mobile register screen
 
 ## Form Validation Messages
 - **Login Page**: 
@@ -89,5 +105,10 @@ The application is configured to run on Replit with:
   - "Please select your Year Level."
   - "Please select your Program."
 
+## Admin Features
+- **Dashboard View**: Displays statistics of registered students by program and year level
+- **User Management View**: Full table of all users with edit/delete actions
+- **Navigation**: Sidebar menu shows "Dashboard" and "User Management" options for admins only
+
 ## Architecture
-Pure frontend application with no backend. All user data stored in browser's localStorage. Enhanced with professional form validation, image preloading, and RED error notifications for optimal user experience and clear error visibility.
+Pure frontend application with no backend. All user data stored in browser's localStorage. Enhanced with professional form validation, image preloading, RED error notifications, and complete admin user management system for optimal user experience and administrative control.

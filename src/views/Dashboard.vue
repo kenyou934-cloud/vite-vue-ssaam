@@ -129,13 +129,17 @@
       </div>
 
       <nav class="flex-1 p-4">
-        <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-white bg-opacity-20 mb-2">
+        <button @click="currentPage = 'dashboard'" :class="['flex items-center space-x-3 px-4 py-3 rounded-lg w-full text-left', currentPage === 'dashboard' ? 'bg-white bg-opacity-20' : 'hover:bg-white hover:bg-opacity-10']">
           <img src="/home.svg" alt="Dashboard" class="w-5 h-5" style="filter: brightness(0) invert(1);" />
           <span>Dashboard</span>
-        </a>
+        </button>
+        <button v-if="currentUser.role === 'admin'" @click="currentPage = 'users'; showMobileMenu = false" :class="['flex items-center space-x-3 px-4 py-3 rounded-lg w-full text-left mt-2', currentPage === 'users' ? 'bg-white bg-opacity-20' : 'hover:bg-white hover:bg-opacity-10']">
+          <img src="/user.svg" alt="Users" class="w-5 h-5" style="filter: brightness(0) invert(1);" />
+          <span>User Management</span>
+        </button>
         <button 
           @click="handleLogout"
-          class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-white hover:bg-opacity-10 w-full text-left"
+          class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-white hover:bg-opacity-10 w-full text-left mt-2"
         >
           <img src="/logout.svg" alt="Log Out" class="w-5 h-5" style="filter: brightness(0) invert(1);" />
           <span>Log Out</span>
@@ -173,13 +177,17 @@
         </div>
 
         <nav class="flex-1 p-4">
-          <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-white bg-opacity-20 mb-2">
+          <button @click="currentPage = 'dashboard'" :class="['flex items-center space-x-3 px-4 py-3 rounded-lg w-full text-left', currentPage === 'dashboard' ? 'bg-white bg-opacity-20' : 'hover:bg-white hover:bg-opacity-10']">
             <img src="/home.svg" alt="Dashboard" class="w-5 h-5" style="filter: brightness(0) invert(1);" />
             <span>Dashboard</span>
-          </a>
+          </button>
+          <button v-if="currentUser.role === 'admin'" @click="currentPage = 'users'; showMobileMenu = false" :class="['flex items-center space-x-3 px-4 py-3 rounded-lg w-full text-left mt-2', currentPage === 'users' ? 'bg-white bg-opacity-20' : 'hover:bg-white hover:bg-opacity-10']">
+            <img src="/user.svg" alt="Users" class="w-5 h-5" style="filter: brightness(0) invert(1);" />
+            <span>User Management</span>
+          </button>
           <button 
             @click="handleLogout"
-            class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-white hover:bg-opacity-10 w-full text-left"
+            class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-white hover:bg-opacity-10 w-full text-left mt-2"
           >
             <img src="/logout.svg" alt="Log Out" class="w-5 h-5" style="filter: brightness(0) invert(1);" />
             <span>Log Out</span>
@@ -214,9 +222,44 @@
       </div>
 
       <div class="p-4 md:p-8">
-        <h1 class="hidden md:block text-2xl md:text-4xl font-bold text-purple-900 mb-8 pb-4 border-b-2 border-purple-900">Dashboard</h1>
+        <h1 class="hidden md:block text-2xl md:text-4xl font-bold text-purple-900 mb-8 pb-4 border-b-2 border-purple-900">{{ currentPage === 'users' ? 'User Management' : 'Dashboard' }}</h1>
 
-        <div v-if="currentUser.role !== 'admin'" class="bg-white rounded-lg shadow-lg p-4 md:p-8 mb-8">
+        <!-- User Management Page -->
+        <div v-if="currentPage === 'users' && currentUser.role === 'admin'" class="bg-white rounded-lg shadow-lg p-4 md:p-8">
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-xl md:text-2xl font-bold text-purple-900">Manage Users</h2>
+            <span class="text-sm text-gray-600">Total: {{ users.length }} users</span>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full border-collapse text-sm">
+              <thead>
+                <tr class="bg-purple-100">
+                  <th class="border border-purple-300 px-4 py-3 text-left font-semibold text-purple-900">Student ID</th>
+                  <th class="border border-purple-300 px-4 py-3 text-left font-semibold text-purple-900">Name</th>
+                  <th class="border border-purple-300 px-4 py-3 text-left font-semibold text-purple-900">Email</th>
+                  <th class="border border-purple-300 px-4 py-3 text-center font-semibold text-purple-900">Program</th>
+                  <th class="border border-purple-300 px-4 py-3 text-center font-semibold text-purple-900">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="user in users" :key="user.studentId || user.student_id" class="hover:bg-gray-50">
+                  <td class="border border-purple-300 px-4 py-3 text-gray-700">{{ user.studentId || user.student_id }}</td>
+                  <td class="border border-purple-300 px-4 py-3 text-gray-700">{{ (user.firstName || user.first_name) }} {{ (user.lastName || user.last_name) }}</td>
+                  <td class="border border-purple-300 px-4 py-3 text-gray-700">{{ user.email }}</td>
+                  <td class="border border-purple-300 px-4 py-3 text-center text-gray-700">{{ user.program }}</td>
+                  <td class="border border-purple-300 px-4 py-3 text-center">
+                    <button @click="editUser(user)" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-600 transition text-xs">Edit</button>
+                    <button @click="deleteUser(user.studentId || user.student_id)" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition text-xs">Delete</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Dashboard Page -->
+        <div v-if="currentPage === 'dashboard' && currentUser.role !== 'admin'" class="bg-white rounded-lg shadow-lg p-4 md:p-8 mb-8">
           <h2 class="text-xl md:text-2xl font-bold text-purple-900 mb-6">My Profile</h2>
           <div class="flex flex-col gap-8">
             <div class="flex flex-col items-center">
@@ -264,7 +307,7 @@
           </div>
         </div>
 
-        <div v-if="currentUser.role === 'admin'" class="bg-white rounded-lg shadow-lg p-4 md:p-8 mb-8">
+        <div v-if="currentPage === 'dashboard' && currentUser.role === 'admin'" class="bg-white rounded-lg shadow-lg p-4 md:p-8 mb-8">
           <h2 class="text-xl md:text-2xl font-bold text-purple-900 mb-6">Registered Students</h2>
 
           <div class="overflow-x-auto text-sm md:text-base">
@@ -322,6 +365,62 @@
       </div>
     </div>
   </div>
+
+  <!-- Edit User Modal -->
+  <div v-if="showEditModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4 max-h-[90vh] overflow-y-auto">
+      <h3 class="text-2xl font-bold text-purple-900 mb-6">Edit User</h3>
+      <div v-if="editingUser" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+          <input v-model="editingUser.firstName" type="text" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 outline-none" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+          <input v-model="editingUser.lastName" type="text" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 outline-none" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+          <input v-model="editingUser.email" type="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 outline-none" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Program</label>
+          <select v-model="editingUser.program" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 outline-none">
+            <option value="">Select Program</option>
+            <option value="BSCS">BSCS</option>
+            <option value="BSIS">BSIS</option>
+            <option value="BSIT">BSIT</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Year Level</label>
+          <select v-model="editingUser.yearLevel" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 outline-none">
+            <option value="">Select Year</option>
+            <option value="1st year">1st year</option>
+            <option value="2nd year">2nd year</option>
+            <option value="3rd year">3rd year</option>
+            <option value="4th year">4th year</option>
+          </select>
+        </div>
+        <div class="flex gap-3 mt-6">
+          <button @click="closeEditModal" class="flex-1 bg-gray-200 text-gray-800 py-2 px-4 rounded-lg font-medium hover:bg-gray-300 transition">Cancel</button>
+          <button @click="saveUser" class="flex-1 bg-gradient-to-r from-purple-600 to-pink-500 text-white py-2 px-4 rounded-lg font-medium hover:from-purple-700 hover:to-pink-600 transition">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div v-if="showDeleteConfirm" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-sm w-full mx-4">
+      <h3 class="text-2xl font-bold text-red-600 mb-4">Delete User?</h3>
+      <p class="text-gray-600 mb-6">Are you sure you want to delete this user? This action cannot be undone.</p>
+      <div class="flex gap-3">
+        <button @click="showDeleteConfirm = false" class="flex-1 bg-gray-200 text-gray-800 py-2 px-4 rounded-lg font-medium hover:bg-gray-300 transition">Cancel</button>
+        <button @click="confirmDelete" class="flex-1 bg-red-600 text-white py-2 px-4 rounded-lg font-medium hover:bg-red-700 transition">Delete</button>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -338,6 +437,11 @@ const showDevelopersPopup = ref(false)
 const showLogoutConfirmation = ref(false)
 const showMobileMenu = ref(false)
 const showContactModal = ref(false)
+const currentPage = ref('dashboard')
+const showEditModal = ref(false)
+const showDeleteConfirm = ref(false)
+const editingUser = ref(null)
+const userToDelete = ref(null)
 
   const developers = [
     { name: 'Jullan Maglinte', initials: 'JM', role: 'Backend Dev', facebook: 'https://facebook.com/jullan.maglinte', image: '' },
@@ -426,5 +530,39 @@ const confirmLogout = () => {
   showLogoutConfirmation.value = false
   localStorage.removeItem('currentUser')
   router.push('/')
+}
+
+const editUser = (user) => {
+  editingUser.value = JSON.parse(JSON.stringify(user))
+  showEditModal.value = true
+}
+
+const closeEditModal = () => {
+  showEditModal.value = false
+  editingUser.value = null
+}
+
+const saveUser = () => {
+  if (!editingUser.value) return
+  const index = users.value.findIndex(u => (u.studentId || u.student_id) === (editingUser.value.studentId || editingUser.value.student_id))
+  if (index !== -1) {
+    users.value[index] = editingUser.value
+    localStorage.setItem('users', JSON.stringify(users.value))
+  }
+  closeEditModal()
+}
+
+const deleteUser = (studentId) => {
+  userToDelete.value = studentId
+  showDeleteConfirm.value = true
+}
+
+const confirmDelete = () => {
+  if (userToDelete.value) {
+    users.value = users.value.filter(u => (u.studentId || u.student_id) !== userToDelete.value)
+    localStorage.setItem('users', JSON.stringify(users.value))
+  }
+  showDeleteConfirm.value = false
+  userToDelete.value = null
 }
 </script>

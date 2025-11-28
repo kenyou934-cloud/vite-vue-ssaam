@@ -51,7 +51,7 @@
   <!-- Mobile Menu Overlay -->
   <div v-if="showMobileMenu" class="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden" @click="showMobileMenu = false"></div>
 
-  <div v-else class="flex h-screen flex-col md:flex-row">
+  <div class="flex h-screen flex-col md:flex-row">
     <!-- Sidebar (Hidden on mobile, visible on desktop) -->
     <div class="hidden md:flex w-64 bg-gradient-to-b from-purple-600 to-pink-400 text-white flex-col order-1 border-r-2 border-white border-opacity-20">
       <div class="p-6 border-b border-white border-opacity-20">
@@ -276,13 +276,13 @@ const showDevelopersPopup = ref(false)
 const showLogoutConfirmation = ref(false)
 const showMobileMenu = ref(false)
 
-const developers = [
-  { name: 'Jullan Maglinte', initials: 'JM', role: 'Backend Dev', facebook: 'https://facebook.com', image: '' },
-  { name: 'Keith Laranjo', initials: 'KL', role: 'Backend Dev', facebook: 'https://facebook.com', image: '' },
-  { name: 'Kenzen Miñao', initials: 'KM', role: 'Frontend Dev', facebook: 'https://facebook.com', image: '' },
-  { name: 'Cristoph Bagabuyo', initials: 'CB', role: 'Frontend Dev', facebook: 'https://facebook.com', image: '' },
-  { name: 'Mischi Jeda Elumba', initials: 'MJ', role: 'UI/UX Designer', facebook: 'https://facebook.com', image: '' }
-]
+  const developers = [
+    { name: 'Jullan Maglinte', initials: 'JM', role: 'Backend Dev', facebook: 'https://facebook.com/jullan.maglinte', image: '' },
+    { name: 'Keith Laranjo', initials: 'KL', role: 'Backend Dev', facebook: 'https://facebook.com/kei.takun.5070', image: '' },
+    { name: 'Kenzen Miñao', initials: 'KM', role: 'Frontend Dev', facebook: 'https://facebook.com/kenzen3131', image: '' },
+    { name: 'Cristoph Bagabuyo', initials: 'CB', role: 'Frontend Dev', facebook: 'https://facebook.com/cristoph.bagabuyo', image: '' },
+    { name: 'Mischi Jeda Elumba', initials: 'MJ', role: 'UI/UX Designer', facebook: 'https://facebook.com/mischijeda.elumba.1', image: '' }
+  ]
 
 const displayName = computed(() => {
   const firstName = currentUser.value.firstName || currentUser.value.first_name

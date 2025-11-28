@@ -45,6 +45,21 @@
     </div>
   </div>
 
+  <div v-if="showErrorNotification" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-sm w-full mx-4 text-center transform transition-all">
+      <div class="w-20 h-20 mx-auto mb-4 bg-red-100 rounded-full flex items-center justify-center">
+        <svg class="w-12 h-12 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </div>
+      <h3 class="text-2xl font-bold text-purple-900 mb-2">Oops!</h3>
+      <p class="text-gray-600">{{ errorMessage }}</p>
+      <button @click="showErrorNotification = false" class="mt-6 px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-lg font-medium hover:from-purple-700 hover:to-pink-600 transition duration-300">
+        Try Again
+      </button>
+    </div>
+  </div>
+
   <div class="hidden md:flex min-h-screen bg-white">
     <div class="desktop-bg-panel">
       <div class="relative z-10 text-center">
@@ -555,6 +570,8 @@ const handleImageUpload = async (event) => {
 const showNotification = ref(false)
 const notificationMessage = ref('')
 const isRegistering = ref(false)
+const showErrorNotification = ref(false)
+const errorMessage = ref('')
 
 const handleNext = async () => {
   // STEP 1 validation
@@ -601,12 +618,14 @@ const handleNext = async () => {
       } else {
         const errorData = await response.json()
         console.error("Error:", errorData)
-        alert("Registration failed. Please try again.")
+        errorMessage.value = "Registration failed. Please try again."
+        showErrorNotification.value = true
       }
     } catch (error) {
       console.error("Submit error:", error)
       isRegistering.value = false
-      alert("Server error. Please try again later.")
+      errorMessage.value = "Server error. Please try again later."
+      showErrorNotification.value = true
     }
 
     return // stop further execution

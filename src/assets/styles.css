@@ -867,3 +867,20 @@ input, textarea, select {
 .slide-in-leave-to {
   transform: translateX(-100%);
 }
+
+/* Password Visibility Toggle Animation */
+@keyframes slash {
+  0% {
+    transform: rotate(0deg) scaleX(1);
+  }
+  50% {
+    transform: rotate(-15deg) scaleX(0.95);
+  }
+  100% {
+    transform: rotate(0deg) scaleX(1);
+  }
+}
+
+.animate-slash {
+  animation: slash 0.4s ease-in-out;
+}

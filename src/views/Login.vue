@@ -75,7 +75,7 @@
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">Student ID</label>
               <div class="relative">
-                <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">👤</span>
+                <img src="/register_user.svg" alt="Student ID" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <input v-model="studentId" type="text" placeholder="25-A-12345" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" required />
               </div>
             </div>
@@ -83,8 +83,12 @@
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
               <div class="relative">
-                <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">🔑</span>
-                <input v-model="password" type="password" placeholder="Your Password (Last Name)" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" required />
+                <img src="/key.svg" alt="Password" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <input v-model="password" :type="showPassword ? 'text' : 'password'" placeholder="Your Password (Last Name)" class="w-full pl-10 pr-8 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" required />
+                <button type="button" @click="showPassword = !showPassword" class="absolute right-3 top-1/2 transform -translate-y-1/2 transition-transform duration-300 ease-in-out"
+                  :class="{ 'animate-slash': showPassword }">
+                  <img :src="showPassword ? '/visibility_on.svg' : '/visibility_off.svg'" alt="Toggle password" class="w-5 h-5" />
+                </button>
               </div>
             </div>
 
@@ -142,7 +146,7 @@
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Student ID</label>
             <div class="relative">
-              <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">👤</span>
+              <img src="/register_user.svg" alt="Student ID" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
               <input v-model="studentId" type="text" placeholder="25-A-12345" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" required />
             </div>
           </div>
@@ -150,8 +154,12 @@
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
             <div class="relative">
-              <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">🔑</span>
-              <input v-model="password" type="password" placeholder="Your Password (Last Name)" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" required />
+              <img src="/key.svg" alt="Password" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <input v-model="password" :type="showPassword ? 'text' : 'password'" placeholder="Your Password (Last Name)" class="w-full pl-10 pr-8 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" required />
+              <button type="button" @click="showPassword = !showPassword" class="absolute right-3 top-1/2 transform -translate-y-1/2 transition-transform duration-300 ease-in-out"
+                :class="{ 'animate-slash': showPassword }">
+                <img :src="showPassword ? '/visibility_on.svg' : '/visibility_off.svg'" alt="Toggle password" class="w-5 h-5" />
+              </button>
             </div>
           </div>
 
@@ -197,6 +205,7 @@ const isLoading = ref(false)
 const showDevelopersPopup = ref(false)
 const showErrorNotification = ref(false)
 const errorMessage = ref('')
+const showPassword = ref(false)
 
 const developers = [
   { name: 'Jullan Maglinte', initials: 'JM', role: 'Backend Dev', facebook: 'https://facebook.com/jullan.maglinte', image: '' },

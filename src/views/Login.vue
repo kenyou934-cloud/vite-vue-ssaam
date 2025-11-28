@@ -1,50 +1,44 @@
 <template>
   <div v-if="showContactModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" @click.self="showContactModal = false">
-    <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4">
+    <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-4xl w-full mx-4">
       <div class="flex justify-between items-center mb-6">
         <h3 class="text-2xl font-bold text-purple-900">Need Help?</h3>
         <button @click="showContactModal = false" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
       </div>
       
-      <div class="space-y-4">
-        <div class="flex items-start gap-4 p-4 bg-purple-50 rounded-lg">
-          <img src="/mail.svg" alt="Email" class="w-6 h-6 mt-1 flex-shrink-0" style="filter: brightness(0) invert(1);" />
-          <div>
-            <p class="font-semibold text-purple-900">Email Support</p>
-            <p class="text-sm text-gray-600">admin@ssaam.edu</p>
-            <p class="text-xs text-gray-500 mt-1">For general inquiries</p>
-          </div>
+      <div class="grid grid-cols-3 gap-4 mb-6">
+        <div class="flex flex-col items-center text-center p-4 bg-purple-50 rounded-lg">
+          <img src="/mail.svg" alt="Email" class="w-8 h-8 mb-3" style="filter: brightness(0) invert(1);" />
+          <p class="font-semibold text-purple-900 text-sm">Email Support</p>
+          <p class="text-xs text-gray-600 mt-2">admin@ssaam.edu</p>
+          <p class="text-xs text-gray-500 mt-1">For general inquiries</p>
         </div>
 
-        <div class="flex items-start gap-4 p-4 bg-pink-50 rounded-lg">
-          <img src="/home.svg" alt="Office" class="w-6 h-6 mt-1 flex-shrink-0" style="filter: brightness(0) invert(1);" />
-          <div>
-            <p class="font-semibold text-purple-900">JRMSU CCS Office</p>
-            <p class="text-sm text-gray-600">College of Computer Studies</p>
-            <p class="text-xs text-gray-500 mt-1">Visit during office hours</p>
-          </div>
+        <div class="flex flex-col items-center text-center p-4 bg-pink-50 rounded-lg">
+          <img src="/home.svg" alt="Office" class="w-8 h-8 mb-3" style="filter: brightness(0) invert(1);" />
+          <p class="font-semibold text-purple-900 text-sm">JRMSU CCS Office</p>
+          <p class="text-xs text-gray-600 mt-2">College of Computer Studies</p>
+          <p class="text-xs text-gray-500 mt-1">Visit during office hours</p>
         </div>
 
-        <div class="flex items-start gap-4 p-4 bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg">
-          <img src="/register_user.svg" alt="Developers" class="w-6 h-6 mt-1 flex-shrink-0" style="filter: brightness(0) invert(1);" />
-          <div>
-            <p class="font-semibold text-purple-900">Meet Our Developers</p>
-            <p class="text-sm text-gray-600">CCS - Creatives Committee</p>
-            <button @click="showDevelopersPopup = true; showContactModal = false" class="text-xs text-purple-600 hover:text-purple-800 font-medium mt-2 underline">View Team →</button>
-          </div>
-        </div>
-
-        <div class="bg-blue-50 rounded-lg p-4">
-          <p class="text-sm text-blue-900 font-medium mb-3">Quick Help</p>
-          <ul class="text-xs text-blue-800 space-y-2">
-            <li>• Login issues? Use your Student ID and password</li>
-            <li>• RFID not working? Contact the CCS office</li>
-            <li>• Profile problems? Check your information is complete</li>
-          </ul>
+        <div class="flex flex-col items-center text-center p-4 bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg">
+          <img src="/register_user.svg" alt="Developers" class="w-8 h-8 mb-3" style="filter: brightness(0) invert(1);" />
+          <p class="font-semibold text-purple-900 text-sm">Meet Our Developers</p>
+          <p class="text-xs text-gray-600 mt-2">CCS - Creatives Committee</p>
+          <button @click="showDevelopersPopup = true; showContactModal = false" class="text-xs text-purple-600 hover:text-purple-800 font-medium mt-2 underline">View Team →</button>
         </div>
       </div>
 
-      <button @click="showContactModal = false" class="w-full mt-6 bg-gradient-to-r from-purple-600 to-pink-500 text-white py-2 px-4 rounded-lg font-medium hover:from-purple-700 hover:to-pink-600 transition">
+      <div class="bg-blue-50 rounded-lg p-4 mb-6">
+        <p class="text-sm text-blue-900 font-medium mb-3">Quick Help</p>
+        <ul class="text-xs text-blue-800 space-y-2">
+          <li>• Login issues? Use your Student ID and password</li>
+          <li>• RFID not working? Contact the CCS office</li>
+          <li>• Profile problems? Check your information is complete</li>
+        </ul>
+      </div>
+
+      <button @click="showContactModal = false" class="w-full bg-gradient-to-r from-purple-600 to-pink-500 text-white py-2 px-4 rounded-lg font-medium hover:from-purple-700 hover:to-pink-600 transition">
         Close
       </button>
     </div>

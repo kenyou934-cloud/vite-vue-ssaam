@@ -15,14 +15,14 @@
   </div>
 
   <!-- Contact Modal -->
-  <div v-if="showContactModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" @click.self="showContactModal = false">
-    <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-4xl w-full mx-4">
+  <div v-if="showContactModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-40" @click.self="showContactModal = false">
+    <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-6xl w-full mx-4 max-h-[90vh] overflow-y-auto">
       <div class="flex justify-between items-center mb-6">
         <h3 class="text-2xl font-bold text-purple-900">Need Help?</h3>
         <button @click="showContactModal = false" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
       </div>
       
-      <div class="grid grid-cols-3 gap-4 mb-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
         <div class="flex flex-col items-center text-center p-4 bg-purple-50 rounded-lg">
           <img src="/mail.svg" alt="Email" class="w-8 h-8 mb-3" style="filter: brightness(0) invert(1);" />
           <p class="font-semibold text-purple-900 text-sm">Email Support</p>

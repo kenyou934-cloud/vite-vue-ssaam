@@ -258,11 +258,11 @@ const errorMessage = ref('')
 const showPassword = ref(false)
 
 const developers = [
-  { name: 'Jullan Maglinte', initials: 'JM', role: 'Backend Dev', facebook: 'https://facebook.com/jullan.maglinte', image: '' },
-  { name: 'Keith Laranjo', initials: 'KL', role: 'Backend Dev', facebook: 'https://facebook.com/kei.takun.5070', image: '' },
-  { name: 'Kenzen Miñao', initials: 'KM', role: 'Frontend Dev', facebook: 'https://facebook.com/kenzen3131', image: '' },
-  { name: 'Cristoph Bagabuyo', initials: 'CB', role: 'Frontend Dev', facebook: 'https://facebook.com/cristoph.bagabuyo', image: '' },
-  { name: 'Mischi Jeda Elumba', initials: 'MJ', role: 'UI/UX Designer', facebook: 'https://facebook.com/mischijeda.elumba.1', image: '' }
+  { name: 'Jullan Maglinte', initials: 'JM', role: 'Backend Dev', facebook: 'https://facebook.com/jullan.maglinte', image: '/team/jullan.jpg' },
+  { name: 'Keith Laranjo', initials: 'KL', role: 'Backend Dev', facebook: 'https://facebook.com/kei.takun.5070', image: '/team/keith.jpg' },
+  { name: 'Kenzen Miñao', initials: 'KM', role: 'Frontend Dev', facebook: 'https://facebook.com/kenzen3131', image: '/team/kenzen.jpg' },
+  { name: 'Cristoph Bagabuyo', initials: 'CB', role: 'Frontend Dev', facebook: 'https://facebook.com/cristoph.bagabuyo', image: '/team/cristoph.jpg' },
+  { name: 'Mischi Jeda Elumba', initials: 'MJ', role: 'UI/UX Designer', facebook: 'https://facebook.com/mischijeda.elumba.1', image: '/team/mischi.jpg' }
 ]
 
 onMounted(() => {

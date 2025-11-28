@@ -13,9 +13,12 @@ A Vue 3 + Vite frontend application for monitoring student attendance at school 
 ## Key Features
 - User authentication (Login/Register)
 - Admin account auto-initialization
-- Student dashboard
+- Student dashboard with responsive design
 - RFID code support for attendance
-- Loading screen with school branding
+- Professional SVG icon system throughout
+- Help/Contact modal accessible from Login and Dashboard
+- Mobile hamburger menu with smooth animations
+- Anti-copy protection and styled error notifications
 
 ## Configuration
 - **Dev Server**: Port 5000, host 0.0.0.0
@@ -31,34 +34,68 @@ The application is configured to run on Replit with:
 - Dev server configured for Replit's proxy environment
 - Static deployment configuration for production
 
-## Recent Changes
-- 2025-11-28: Image compression before upload
-  - Added client-side image compression using Canvas API
-  - Images automatically compressed to 1MB or below before uploading to imgbb
-  - Smart quality reduction: starts at 0.9 quality and decreases by 0.08 per attempt
-  - Maintains aspect ratio and maximum 1920x1920 dimensions
-  - Seamless: compression happens transparently without user interaction
-  - No additional dependencies required
+## Recent Changes (2025-11-28)
 
-- 2025-11-28: Styled notifications and anti-copy protection
-  - Replaced all alert() dialogs with styled error notification modals
-  - Error modals use red "Oops!" header matching app's purple/pink gradient theme
-  - Added comprehensive anti-copy protection:
-    - Disabled text/image selection globally via CSS (user-select: none)
-    - Blocked right-click context menu and copy keyboard shortcuts (Ctrl+C, Ctrl+A, Ctrl+X)
-    - Form inputs (input/textarea/select) preserved with normal text selection
+### Professional SVG Icon System
+- Replaced ALL emojis with professional SVG icons throughout Registration, Login, and Dashboard
+- Icons include: user.svg, key.svg, mail.svg, register_user.svg, arrow_down.svg, course.svg, book.svg, detector.svg, calendar.svg, event_note.svg, home.svg, logout.svg, help.svg
+- White icon filtering: `style="filter: brightness(0) invert(1);"` for sidebar/gradient backgrounds
 
-- 2025-11-28: Admin security fix and developers popup feature
-  - Fixed admin display name to hide last name (password) in Dashboard
-  - Admin now shows only first name or 'Administrator' as fallback
-  - Added "Meet Our Developers" popup in Login.vue, Register.vue, and Dashboard.vue
-  - Clicking "CCS - Creatives Committee" shows popup with 5 developer profiles (2 backend, 2 frontend, 1 UI/UX designer)
+### Registration Form Icons
+- **First/Middle/Last Name**: user.svg
+- **Email**: mail.svg
+- **Suffix Dropdown**: arrow_down.svg (right-aligned indicator)
+- **Student ID**: user.svg
+- **RFID Code**: detector.svg
+- **Year Level**: book.svg
+- **Program**: course.svg
+- **Semester**: calendar.svg
+- **School Year**: event_note.svg
+- **Register Tab**: register_user.svg (white background)
 
-- 2024-11-28: Initial import and Replit environment setup
-  - Installed npm dependencies
-  - Configured workflow for dev server
-  - Set up static deployment configuration
-  - Verified application runs successfully
+### Dashboard & Navigation
+- **Home Icon**: home.svg (white filter in sidebar)
+- **Logout Icon**: logout.svg (white filter in sidebar, replaces 🚪 emoji)
+- **Help Button**: help.svg icon (responsive placement)
+  - Desktop: Fixed floating button (top-right, purple/pink gradient)
+  - Mobile: In header next to hamburger menu with hover state
+
+### Contact/Help System
+- **Help Modal** ("Need Help?"): 
+  - Accessible from both Login page and Dashboard
+  - Shows: Email Support, JRMSU CCS Office, Meet Our Developers, Quick Help tips
+  - Responsive design with gradient accent boxes
+  - Same styling across both Login and Dashboard
+
+### Login Dashboard Updates
+- **Register Button**: Now uses user.svg instead of 👤 emoji
+- **Password Visibility**: Removed animation, clean toggle only
+- **Help Link**: Changed to help.svg button with inline styling
+- **Contact Modal**: Added to Login.vue for consistency
+
+### Dashboard Updates
+- **Mobile Header**: Help button with rounded hover state
+- **Desktop Help Button**: Floating button with gradient background
+- **Both Sidebars**: White home and logout icons with proper filtering
+- **Responsive**: Help button adapts to screen size
+
+## Previous Changes (Earlier 2025-11-28)
+
+### Image Compression
+- Client-side image compression using Canvas API
+- Automatic compression to 1MB or below before uploading
+- Smart quality reduction: starts at 0.9, decreases by 0.08 per attempt
+- Maintains aspect ratio and maximum 1920x1920 dimensions
+
+### Styled Notifications & Security
+- Replaced all alert() with styled error modal ("Oops!" header)
+- Anti-copy protection: disabled text selection, blocked right-click/shortcuts
+- Form inputs preserved with normal text selection
+
+### Admin Security & Developers Popup
+- Fixed admin display name to hide password
+- "Meet Our Developers" popup with 5 developer profiles
+- Accessible from Login, Register, and Dashboard
 
 ## Architecture
-This is a pure frontend application with no backend dependencies. All user data is stored in the browser's localStorage, making it suitable for prototyping and development.
+Pure frontend application with no backend. All user data stored in browser's localStorage. Suitable for prototyping and development with comprehensive UI/UX polish.

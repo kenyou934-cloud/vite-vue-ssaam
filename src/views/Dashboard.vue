@@ -136,14 +136,14 @@
 
       <nav class="flex-1 p-4">
         <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-white bg-opacity-20 mb-2">
-          <img src="/home.svg" alt="Dashboard" class="w-5 h-5 invert" />
+          <img src="/home.svg" alt="Dashboard" class="w-5 h-5" style="filter: brightness(0) invert(1);" />
           <span>Dashboard</span>
         </a>
         <button 
           @click="handleLogout"
           class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-white hover:bg-opacity-10 w-full text-left"
         >
-          <span>🚪</span>
+          <img src="/logout.svg" alt="Log Out" class="w-5 h-5" style="filter: brightness(0) invert(1);" />
           <span>Log Out</span>
         </button>
       </nav>
@@ -180,14 +180,14 @@
 
         <nav class="flex-1 p-4">
           <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-white bg-opacity-20 mb-2">
-            <img src="/home.svg" alt="Dashboard" class="w-5 h-5 invert" />
+            <img src="/home.svg" alt="Dashboard" class="w-5 h-5" style="filter: brightness(0) invert(1);" />
             <span>Dashboard</span>
           </a>
           <button 
             @click="handleLogout"
             class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-white hover:bg-opacity-10 w-full text-left"
           >
-            <span>🚪</span>
+            <img src="/logout.svg" alt="Log Out" class="w-5 h-5" style="filter: brightness(0) invert(1);" />
             <span>Log Out</span>
           </button>
         </nav>
@@ -205,15 +205,17 @@
       <div class="md:hidden sticky top-0 bg-white border-b border-gray-200 p-4 flex items-center justify-between z-20 shadow">
         <h1 class="text-xl font-bold text-purple-900">SSAAM</h1>
         <div class="flex items-center gap-2">
-          <button @click="showContactModal = true" class="text-lg text-purple-900 hover:text-purple-700 px-2">❓</button>
+          <button @click="showContactModal = true" class="p-2 hover:bg-purple-100 rounded-lg transition">
+            <img src="/help.svg" alt="Help" class="w-5 h-5 text-purple-600" />
+          </button>
           <button @click="showMobileMenu = true" class="text-2xl text-purple-900 hover:text-purple-700">☰</button>
         </div>
       </div>
 
       <!-- Desktop Help Button (top right) -->
       <div class="hidden md:block fixed top-4 right-4 z-20">
-        <button @click="showContactModal = true" class="bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl hover:from-purple-700 hover:to-pink-600 transition shadow-lg">
-          ❓
+        <button @click="showContactModal = true" class="bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-full w-12 h-12 flex items-center justify-center hover:from-purple-700 hover:to-pink-600 transition shadow-lg">
+          <img src="/help.svg" alt="Help" class="w-5 h-5" style="filter: brightness(0) invert(1);" />
         </button>
       </div>
 

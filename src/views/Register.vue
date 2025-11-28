@@ -104,7 +104,7 @@
             </button>
           </div>
 
-          <form @submit.prevent="handleNext" class="space-y-4">
+          <form @submit.prevent="handleNext" novalidate class="space-y-4">
 
             <div v-if="currentStep === 1" class="space-y-4">
               <div>
@@ -311,7 +311,7 @@
           </button>
         </div>
 
-        <form @submit.prevent="handleNext" class="space-y-4">
+        <form @submit.prevent="handleNext" novalidate class="space-y-4">
 
           <div v-if="currentStep === 1" class="space-y-4">
             <div>
@@ -668,12 +668,45 @@ const errorMessage = ref('')
 const handleNext = async () => {
   // STEP 1 validation
   if (currentStep.value === 1) {
-    if (!formData.first_name || !formData.last_name || !formData.email) return
+    if (!formData.first_name || !formData.first_name.trim()) {
+      errorMessage.value = "Please provide your first name to continue."
+      showErrorNotification.value = true
+      return
+    }
+    if (!formData.last_name || !formData.last_name.trim()) {
+      errorMessage.value = "Please provide your last name to proceed."
+      showErrorNotification.value = true
+      return
+    }
+    if (!formData.email || !formData.email.trim()) {
+      errorMessage.value = "Please provide your email address."
+      showErrorNotification.value = true
+      return
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      errorMessage.value = "Please enter a valid email address."
+      showErrorNotification.value = true
+      return
+    }
   }
 
   // STEP 2 validation
   if (currentStep.value === 2) {
-    if (!formData.student_id || !formData.rfid_code || !formData.year_level || !formData.program) return
+    if (!formData.student_id || !formData.student_id.trim()) {
+      errorMessage.value = "Please enter your Student ID to continue."
+      showErrorNotification.value = true
+      return
+    }
+    if (!formData.year_level) {
+      errorMessage.value = "Please select your Year Level."
+      showErrorNotification.value = true
+      return
+    }
+    if (!formData.program) {
+      errorMessage.value = "Please select your Program."
+      showErrorNotification.value = true
+      return
+    }
   }
 
   // STEP 3 — final step: submit form

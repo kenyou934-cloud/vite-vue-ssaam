@@ -116,7 +116,7 @@
             </button>
           </div>
 
-          <form @submit.prevent="handleLogin" class="space-y-6">
+          <form @submit.prevent="handleLogin" novalidate class="space-y-6">
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">Student ID</label>
               <div class="relative">
@@ -189,7 +189,7 @@
           </button>
         </div>
 
-        <form @submit.prevent="handleLogin" class="space-y-6">
+        <form @submit.prevent="handleLogin" novalidate class="space-y-6">
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Student ID</label>
             <div class="relative">
@@ -276,6 +276,18 @@ onMounted(() => {
 })
 
 const handleLogin = async () => {
+  // Custom validation
+  if (!studentId.value.trim()) {
+    errorMessage.value = "Please enter your Student ID to proceed."
+    showErrorNotification.value = true
+    return
+  }
+  if (!password.value.trim()) {
+    errorMessage.value = "Please enter your password to continue."
+    showErrorNotification.value = true
+    return
+  }
+
   isLoading.value = true
   try {
     const enteredId = studentId.value.trim();

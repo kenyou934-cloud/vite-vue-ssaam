@@ -1,9 +1,26 @@
 <template>
-  <div
-  v-if="showNotification"
-  class="fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transition-all duration-300 z-50"
->
-  {{ notificationMessage }}
+  <div v-if="isRegistering" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-sm w-full mx-4 text-center">
+      <svg class="animate-spin h-16 w-16 mx-auto mb-4 text-purple-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+      </svg>
+      <p class="text-xl font-semibold text-purple-900">Registering...</p>
+      <p class="text-sm text-gray-600 mt-2">Please wait while we create your account</p>
+    </div>
+  </div>
+
+  <div v-if="showNotification" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-sm w-full mx-4 text-center transform transition-all">
+      <div class="w-20 h-20 mx-auto mb-4 bg-green-100 rounded-full flex items-center justify-center">
+        <svg class="w-12 h-12 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+        </svg>
+      </div>
+      <h3 class="text-2xl font-bold text-purple-900 mb-2">Success!</h3>
+      <p class="text-gray-600">{{ notificationMessage }}</p>
+      <p class="text-sm text-gray-500 mt-4">Redirecting to login...</p>
+    </div>
   </div>
 
   <div class="hidden md:flex min-h-screen bg-white">
@@ -54,7 +71,7 @@
                 <label class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
                 <div class="relative">
                   <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">👤</span>
-                  <input v-model="formData.first_name" type="text" placeholder="Ken" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" required />
+                  <input v-model="formData.first_name" type="text" placeholder="Juan" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" required />
                 </div>
               </div>
               <div>
@@ -459,8 +476,6 @@ const formData = reactive({
   program: '',
   photo: '',
   semester: '',
-  email: '',
-  school_year: '',
 })
 
 const isUploading = ref(false);
@@ -508,6 +523,7 @@ const handleImageUpload = async (event) => {
 
 const showNotification = ref(false)
 const notificationMessage = ref('')
+const isRegistering = ref(false)
 
 const handleNext = async () => {
   // STEP 1 validation
@@ -522,12 +538,15 @@ const handleNext = async () => {
 
   // STEP 3 — final step: submit form
   if (currentStep.value === 3) {
+    isRegistering.value = true
+    
     while (isUploading.value) {
       await new Promise(resolve => setTimeout(resolve, 300))
     }
 
     if (!formData.photo) {
       console.error("Photo missing after upload.")
+      isRegistering.value = false
       return
     }
 
@@ -538,8 +557,10 @@ const handleNext = async () => {
         body: JSON.stringify(formData),
       })
 
+      isRegistering.value = false
+
       if (response.ok) {
-        notificationMessage.value = "Registered successfully! 🎉"
+        notificationMessage.value = "Your account has been created successfully!"
         showNotification.value = true
 
         setTimeout(() => {
@@ -549,9 +570,12 @@ const handleNext = async () => {
       } else {
         const errorData = await response.json()
         console.error("Error:", errorData)
+        alert("Registration failed. Please try again.")
       }
     } catch (error) {
       console.error("Submit error:", error)
+      isRegistering.value = false
+      alert("Server error. Please try again later.")
     }
 
     return // stop further execution

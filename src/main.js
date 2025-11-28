@@ -11,7 +11,7 @@ const initializeAdmin = () => {
     const adminUser = {
       firstName: 'Admin',
       middleName: '',
-      lastName: 'Admin123',
+      lastName: 'User',
       suffix: '',
       email: 'admin@ssaam.edu',
       studentId: 'admin',

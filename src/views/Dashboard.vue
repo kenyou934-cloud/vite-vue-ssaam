@@ -1,5 +1,16 @@
 <template>
-  <div class="flex h-screen">
+  <div v-if="isPageLoading" class="fixed inset-0 bg-gradient-to-b from-purple-600 to-pink-400 flex items-center justify-center z-50">
+    <div class="text-center text-white">
+      <svg class="animate-spin h-16 w-16 mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+      </svg>
+      <p class="text-xl font-semibold">Loading Dashboard...</p>
+      <p class="text-sm opacity-75 mt-2">Please wait while we fetch your data</p>
+    </div>
+  </div>
+
+  <div v-else class="flex h-screen">
     <div class="w-64 bg-gradient-to-b from-purple-600 to-pink-400 text-white flex flex-col">
       <div class="p-6 border-b border-white border-opacity-20">
         <div class="flex items-center justify-center mb-2">
@@ -11,7 +22,13 @@
       <div class="p-6 border-b border-white border-opacity-20">
         <div class="flex items-center space-x-3">
           <div class="w-12 h-12 rounded-full bg-white bg-opacity-30 flex items-center justify-center text-2xl overflow-hidden">
-            <img v-if="currentUser.image || currentUser.photo" :src="currentUser.image || currentUser.photo" alt="Profile" class="w-full h-full object-cover" />
+            <div v-if="sidebarImageLoading" class="w-full h-full flex items-center justify-center">
+              <svg class="animate-spin h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+            </div>
+            <img v-else-if="currentUser.image || currentUser.photo" :src="currentUser.image || currentUser.photo" alt="Profile" class="w-full h-full object-cover" @load="sidebarImageLoading = false" @error="sidebarImageLoading = false" />
             <span v-else>👤</span>
           </div>
           <div>
@@ -50,7 +67,13 @@
           <div class="flex flex-col md:flex-row gap-8">
             <div class="flex flex-col items-center">
               <div class="w-32 h-32 rounded-full bg-gray-200 overflow-hidden mb-4 shadow-lg">
-                <img v-if="currentUser.image || currentUser.photo" :src="currentUser.image || currentUser.photo" alt="Profile Picture" class="w-full h-full object-cover" />
+                <div v-if="profileImageLoading" class="w-full h-full flex items-center justify-center bg-purple-100">
+                  <svg class="animate-spin h-10 w-10 text-purple-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                </div>
+                <img v-else-if="currentUser.image || currentUser.photo" :src="currentUser.image || currentUser.photo" alt="Profile Picture" class="w-full h-full object-cover" @load="profileImageLoading = false" @error="profileImageLoading = false" />
                 <div v-else class="w-full h-full flex items-center justify-center text-6xl text-gray-400">
                   👤
                 </div>
@@ -154,6 +177,9 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 const currentUser = ref({})
 const users = ref([])
+const isPageLoading = ref(true)
+const profileImageLoading = ref(true)
+const sidebarImageLoading = ref(true)
 
 const displayName = computed(() => {
   const firstName = currentUser.value.firstName || currentUser.value.first_name
@@ -171,6 +197,15 @@ onMounted(async () => {
     return
   }
   currentUser.value = user
+  
+  // Set image loading states based on whether user has image
+  if (user.image || user.photo) {
+    profileImageLoading.value = true
+    sidebarImageLoading.value = true
+  } else {
+    profileImageLoading.value = false
+    sidebarImageLoading.value = false
+  }
   
   // If admin, fetch students from API
   if (user.role === 'admin') {
@@ -195,6 +230,9 @@ onMounted(async () => {
   } else {
     users.value = JSON.parse(localStorage.getItem('users') || '[]')
   }
+  
+  // Hide page loading after data is fetched
+  isPageLoading.value = false
 })
 
 const stats = computed(() => {

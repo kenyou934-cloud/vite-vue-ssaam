@@ -200,8 +200,8 @@ const router = useRouter()
 const currentUser = ref({})
 const users = ref([])
 const isPageLoading = ref(true)
-const profileImageLoading = ref(true)
-const sidebarImageLoading = ref(true)
+const profileImageLoading = ref(false)
+const sidebarImageLoading = ref(false)
 const showDevelopersPopup = ref(false)
 
 const developers = [
@@ -231,15 +231,6 @@ onMounted(async () => {
     return
   }
   currentUser.value = user
-  
-  // Set image loading states based on whether user has image
-  if (user.image || user.photo) {
-    profileImageLoading.value = true
-    sidebarImageLoading.value = true
-  } else {
-    profileImageLoading.value = false
-    sidebarImageLoading.value = false
-  }
   
   // If admin, fetch students from API
   if (user.role === 'admin') {

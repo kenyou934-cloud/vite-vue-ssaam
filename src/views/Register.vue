@@ -216,7 +216,7 @@
                 <div>
                   <label class="block text-sm font-medium text-gray-700 mb-2">School Year</label>
                   <div class="relative">
-                    <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xs">📅</span>
+                    <img src="/event_note.svg" alt="School Year" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4" />
                     <select v-model="formData.school_year" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none appearance-none bg-white text-sm" required>
                       <option value="" disabled>Year</option>
                       <option value="2024-2025">2024-2025</option>
@@ -423,7 +423,7 @@
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">School Year</label>
                 <div class="relative">
-                  <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xs">📅</span>
+                  <img src="/event_note.svg" alt="School Year" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4" />
                   <select v-model="formData.school_year" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none appearance-none bg-white text-sm" required>
                     <option value="" disabled>Year</option>
                     <option value="2024-2025">2024-2025</option>

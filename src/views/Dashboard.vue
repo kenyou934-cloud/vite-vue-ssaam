@@ -238,6 +238,7 @@
                   <th class="border border-purple-300 px-4 py-3 text-left font-semibold text-purple-900">Student ID</th>
                   <th class="border border-purple-300 px-4 py-3 text-left font-semibold text-purple-900">Name</th>
                   <th class="border border-purple-300 px-4 py-3 text-left font-semibold text-purple-900">Email</th>
+                  <th class="border border-purple-300 px-4 py-3 text-center font-semibold text-purple-900">RFID Code</th>
                   <th class="border border-purple-300 px-4 py-3 text-center font-semibold text-purple-900">Program</th>
                   <th class="border border-purple-300 px-4 py-3 text-center font-semibold text-purple-900">Actions</th>
                 </tr>
@@ -247,6 +248,7 @@
                   <td class="border border-purple-300 px-4 py-3 text-gray-700">{{ user.studentId || user.student_id }}</td>
                   <td class="border border-purple-300 px-4 py-3 text-gray-700">{{ (user.firstName || user.first_name) }} {{ (user.lastName || user.last_name) }}</td>
                   <td class="border border-purple-300 px-4 py-3 text-gray-700">{{ user.email }}</td>
+                  <td class="border border-purple-300 px-4 py-3 text-center text-gray-700">{{ user.rfidCode || user.rfid_code || '—' }}</td>
                   <td class="border border-purple-300 px-4 py-3 text-center text-gray-700">{{ user.program }}</td>
                   <td class="border border-purple-300 px-4 py-3 text-center">
                     <button @click="editUser(user)" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-600 transition text-xs">Edit</button>
@@ -401,6 +403,10 @@
             <option value="3rd year">3rd year</option>
             <option value="4th year">4th year</option>
           </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">RFID Code</label>
+          <input v-model="editingUser.rfidCode" type="text" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 outline-none" />
         </div>
         <div class="flex gap-3 mt-6">
           <button @click="closeEditModal" class="flex-1 bg-gray-200 text-gray-800 py-2 px-4 rounded-lg font-medium hover:bg-gray-300 transition">Cancel</button>

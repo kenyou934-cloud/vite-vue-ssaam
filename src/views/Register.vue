@@ -81,7 +81,7 @@
         <div class="text-center mb-8">
           <div class="flex items-start justify-center gap-4 mb-4">
             <div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-600 to-pink-400 flex items-center justify-center">
-              <img src="/register_user.svg" alt="Register" class="w-7 h-7" style="filter: invert(100%);" />
+              <img src="/register_user.svg" alt="Register" class="w-7 h-7" />
             </div>
             <div class="text-left pt-2">
               <h2 class="text-2xl font-bold text-purple-900">Let's Create</h2>
@@ -289,7 +289,7 @@
 
     <div class="text-center text-white pt-12 pb-8 px-4 relative z-10">
       <div v-if="currentStep !== 3" class="w-16 h-16 mx-auto mb-4 rounded-full bg-white bg-opacity-20 flex items-center justify-center">
-        <img src="/register_user.svg" alt="Register" class="w-10 h-10" style="filter: invert(100%);" />
+        <img src="/register_user.svg" alt="Register" class="w-10 h-10 invert" />
       </div>
       <h1 class="text-3xl font-bold mb-2">Let's Create</h1>
       <h2 class="text-3xl font-bold mb-4">Your Profile!</h2>

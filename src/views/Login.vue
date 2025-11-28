@@ -67,7 +67,7 @@
               Log In
             </button>
             <button @click="goToRegister" class="flex-1 py-3 px-4 text-center font-medium text-gray-500 hover:text-gray-700 flex items-center justify-center gap-1">
-              <span>👤</span> Register
+              <img src="/user.svg" alt="Register" class="w-5 h-5" /> Register
             </button>
           </div>
 
@@ -137,7 +137,7 @@
             Log In
           </button>
           <button @click="goToRegister" class="flex-1 py-3 px-4 text-center font-medium text-gray-500 hover:text-gray-700 flex items-center justify-center gap-1">
-            <span>👤</span> Register
+            <img src="/user.svg" alt="Register" class="w-5 h-5" /> Register
           </button>
         </div>
 
@@ -155,8 +155,7 @@
             <div class="relative">
               <img src="/key.svg" alt="Password" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
               <input v-model="password" :type="showPassword ? 'text' : 'password'" placeholder="Your Password (Last Name)" class="w-full pl-10 pr-8 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none" required />
-              <button type="button" @click="showPassword = !showPassword" class="absolute right-3 top-1/2 transform -translate-y-1/2 transition-transform duration-300 ease-in-out"
-                :class="{ 'animate-slash': showPassword }">
+              <button type="button" @click="showPassword = !showPassword" class="absolute right-3 top-1/2 transform -translate-y-1/2">
                 <img :src="showPassword ? '/visibility_on.svg' : '/visibility_off.svg'" alt="Toggle password" class="w-5 h-5" />
               </button>
             </div>

@@ -20,14 +20,15 @@
         <h3 class="text-2xl font-bold text-purple-900">Meet Our Developers</h3>
         <button @click="showDevelopersPopup = false" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
       </div>
-      <div class="grid grid-cols-5 gap-4 mb-6">
-        <div v-for="dev in developers" :key="dev.name" class="flex flex-col items-center">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-pink-400 flex items-center justify-center text-white text-2xl shadow-lg mb-2">
-            {{ dev.initials }}
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 mb-6">
+        <a v-for="dev in developers" :key="dev.name" :href="dev.facebook" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center cursor-pointer hover:transform hover:scale-105 transition">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-pink-400 flex items-center justify-center text-white text-2xl shadow-lg mb-2 overflow-hidden">
+            <img v-if="dev.image" :src="dev.image" :alt="dev.name" class="w-full h-full object-cover" />
+            <span v-else>{{ dev.initials }}</span>
           </div>
-          <p class="text-xs font-semibold text-gray-800 text-center">{{ dev.name }}</p>
-          <p class="text-xs text-purple-600 text-center">{{ dev.role }}</p>
-        </div>
+          <p class="text-xs font-semibold text-purple-600 hover:text-purple-800 text-center">{{ dev.name }}</p>
+          <p class="text-xs text-gray-500 text-center">{{ dev.role }}</p>
+        </a>
       </div>
       <div class="text-center text-sm text-gray-600">
         <p class="font-medium text-purple-900">CCS - Creatives Committee</p>
@@ -198,11 +199,11 @@ const showErrorNotification = ref(false)
 const errorMessage = ref('')
 
 const developers = [
-  { name: 'Dev 1', initials: 'BE', role: 'Backend Dev' },
-  { name: 'Dev 2', initials: 'BE', role: 'Backend Dev' },
-  { name: 'Dev 3', initials: 'FE', role: 'Frontend Dev' },
-  { name: 'Dev 4', initials: 'FE', role: 'Frontend Dev' },
-  { name: 'Dev 5', initials: 'UX', role: 'UI/UX Designer' }
+  { name: 'Jullan Maglinte', initials: 'JM', role: 'Backend Dev', facebook: 'https://facebook.com', image: '' },
+  { name: 'Keith Laranjo', initials: 'KL', role: 'Backend Dev', facebook: 'https://facebook.com', image: '' },
+  { name: 'Kenzen Miñao', initials: 'KM', role: 'Frontend Dev', facebook: 'https://facebook.com', image: '' },
+  { name: 'Cristoph Bagabuyo', initials: 'CB', role: 'Frontend Dev', facebook: 'https://facebook.com', image: '' },
+  { name: 'Mischi Jeda Elumba', initials: 'MJ', role: 'UI/UX Designer', facebook: 'https://facebook.com', image: '' }
 ]
 
 onMounted(() => {

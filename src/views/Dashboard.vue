@@ -24,7 +24,7 @@
       
       <div class="space-y-4">
         <div class="flex items-start gap-4 p-4 bg-purple-50 rounded-lg">
-          <img src="/mail.svg" alt="Email" class="w-6 h-6 mt-1 flex-shrink-0" />
+          <img src="/mail.svg" alt="Email" class="w-6 h-6 mt-1 flex-shrink-0" style="filter: brightness(0) invert(1);" />
           <div>
             <p class="font-semibold text-purple-900">Email Support</p>
             <p class="text-sm text-gray-600">admin@ssaam.edu</p>
@@ -33,7 +33,7 @@
         </div>
 
         <div class="flex items-start gap-4 p-4 bg-pink-50 rounded-lg">
-          <img src="/home.svg" alt="Office" class="w-6 h-6 mt-1 flex-shrink-0" />
+          <img src="/home.svg" alt="Office" class="w-6 h-6 mt-1 flex-shrink-0" style="filter: brightness(0) invert(1);" />
           <div>
             <p class="font-semibold text-purple-900">JRMSU CCS Office</p>
             <p class="text-sm text-gray-600">College of Computer Studies</p>
@@ -42,7 +42,7 @@
         </div>
 
         <div class="flex items-start gap-4 p-4 bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg">
-          <img src="/register_user.svg" alt="Developers" class="w-6 h-6 mt-1 flex-shrink-0" />
+          <img src="/register_user.svg" alt="Developers" class="w-6 h-6 mt-1 flex-shrink-0" style="filter: brightness(0) invert(1);" />
           <div>
             <p class="font-semibold text-purple-900">Meet Our Developers</p>
             <p class="text-sm text-gray-600">CCS - Creatives Committee</p>

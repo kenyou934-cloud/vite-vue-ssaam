@@ -22,6 +22,7 @@ A Vue 3 + Vite frontend application for monitoring student attendance at school 
 - Image preloading before login form appears
 - Optional field labels for better UX
 - Advanced form validation with custom error messages
+- RED error notifications for clear error visibility
 
 ## Configuration
 - **Dev Server**: Port 5000, host 0.0.0.0
@@ -38,6 +39,13 @@ The application is configured to run on Replit with:
 - Static deployment configuration for production
 
 ## Latest Updates (2025-11-28)
+
+### RED Error Notifications
+- **Error Modal Styling**: Red border, red heading, red message text
+- **Applied To**: Login page, Register page (all validation errors)
+- **Clear Visibility**: Errors stand out with prominent red styling
+- **Error Icon**: Dark red X icon for attention
+- **Try Again Button**: Red gradient button matching error theme
 
 ### Advanced Form Validation
 - **Student ID Format**: Must follow format `12-A-12345` (2 digits, hyphen, 1 uppercase letter, hyphen, 5 digits)
@@ -82,4 +90,4 @@ The application is configured to run on Replit with:
   - "Please select your Program."
 
 ## Architecture
-Pure frontend application with no backend. All user data stored in browser's localStorage. Enhanced with professional form validation, image preloading, and SSAAM-branded error messages for optimal user experience.
+Pure frontend application with no backend. All user data stored in browser's localStorage. Enhanced with professional form validation, image preloading, and RED error notifications for optimal user experience and clear error visibility.

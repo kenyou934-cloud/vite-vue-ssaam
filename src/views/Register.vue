@@ -131,8 +131,7 @@
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Suffix</label>
                 <div class="relative">
-                  <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">👤</span>
-                  <select v-model="formData.suffix" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none appearance-none bg-white">
+                  <select v-model="formData.suffix" class="w-full pl-4 pr-10 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none appearance-none bg-white">
                     <option value="">Select Suffix</option>
                     <option value="Jr.">Jr.</option>
                     <option value="Sr.">Sr.</option>
@@ -140,6 +139,7 @@
                     <option value="III">III</option>
                     <option value="IV">IV</option>
                   </select>
+                  <img src="/arrow_down.svg" alt="Dropdown" class="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 pointer-events-none" />
                 </div>
               </div>
               <div>
@@ -338,8 +338,7 @@
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">Suffix</label>
               <div class="relative">
-                <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">👤</span>
-                <select v-model="formData.suffix" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none appearance-none bg-white">
+                <select v-model="formData.suffix" class="w-full pl-4 pr-10 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none appearance-none bg-white">
                   <option value="">Select Suffix</option>
                   <option value="Jr.">Jr.</option>
                   <option value="Sr.">Sr.</option>
@@ -347,6 +346,7 @@
                   <option value="III">III</option>
                   <option value="IV">IV</option>
                 </select>
+                <img src="/arrow_down.svg" alt="Dropdown" class="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 pointer-events-none" />
               </div>
             </div>
             <div>

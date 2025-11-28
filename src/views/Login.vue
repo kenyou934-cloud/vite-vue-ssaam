@@ -112,7 +112,7 @@
               Log In
             </button>
             <button @click="goToRegister" class="flex-1 py-3 px-4 text-center font-medium text-gray-500 hover:text-gray-700 flex items-center justify-center gap-1">
-              <img src="/user.svg" alt="Register" class="w-5 h-5" /> Register
+              <img src="/register_user.svg" alt="Register" class="w-5 h-5" /> Register
             </button>
           </div>
 
@@ -185,7 +185,7 @@
             Log In
           </button>
           <button @click="goToRegister" class="flex-1 py-3 px-4 text-center font-medium text-gray-500 hover:text-gray-700 flex items-center justify-center gap-1">
-            <img src="/user.svg" alt="Register" class="w-5 h-5" /> Register
+            <img src="/register_user.svg" alt="Register" class="w-5 h-5" /> Register
           </button>
         </div>
 

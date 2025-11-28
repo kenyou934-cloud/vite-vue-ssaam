@@ -34,68 +34,31 @@ The application is configured to run on Replit with:
 - Dev server configured for Replit's proxy environment
 - Static deployment configuration for production
 
-## Recent Changes (2025-11-28)
+## Latest Updates (2025-11-28)
 
-### Professional SVG Icon System
-- Replaced ALL emojis with professional SVG icons throughout Registration, Login, and Dashboard
-- Icons include: user.svg, key.svg, mail.svg, register_user.svg, arrow_down.svg, course.svg, book.svg, detector.svg, calendar.svg, event_note.svg, home.svg, logout.svg, help.svg
-- White icon filtering: `style="filter: brightness(0) invert(1);"` for sidebar/gradient backgrounds
+### Contact Modal - Final Improvements
+- **Responsive Grid Layout**: Mobile (1 col) → Tablet (2 col) → Desktop (3 col)
+- **Scrollable on Small Screens**: Added `max-h-[90vh] overflow-y-auto`
+- **Form Validation Compatibility**: Modal z-index set to `z-40` (allows validation messages to appear)
+- **All SVG Icons White**: mail.svg, home.svg, register_user.svg with brightness filter
 
-### Registration Form Icons
-- **First/Middle/Last Name**: user.svg
-- **Email**: mail.svg
-- **Suffix Dropdown**: arrow_down.svg (right-aligned indicator)
-- **Student ID**: user.svg
-- **RFID Code**: detector.svg
-- **Year Level**: book.svg
-- **Program**: course.svg
-- **Semester**: calendar.svg
-- **School Year**: event_note.svg
-- **Register Tab**: register_user.svg (white background)
-
-### Dashboard & Navigation
-- **Home Icon**: home.svg (white filter in sidebar)
-- **Logout Icon**: logout.svg (white filter in sidebar, replaces 🚪 emoji)
-- **Help Button**: help.svg icon (responsive placement)
-  - Desktop: Fixed floating button (top-right, purple/pink gradient)
-  - Mobile: In header next to hamburger menu with hover state
-
-### Contact/Help System
-- **Help Modal** ("Need Help?"): 
-  - Accessible from both Login page and Dashboard
-  - Shows: Email Support, JRMSU CCS Office, Meet Our Developers, Quick Help tips
-  - Responsive design with gradient accent boxes
-  - Same styling across both Login and Dashboard
+### Developers Popup - Fixed Overlapping Text
+- **Larger Modal**: Increased to `max-w-4xl` for better spacing
+- **Bigger Avatar Circles**: `w-20 h-20` (was `w-16 h-16`)
+- **Smart Text Truncation**:
+  - Developer names: `line-clamp-2` (max 2 lines)
+  - Roles: `line-clamp-1` (max 1 line)
+- **Better Responsive Grid**: `grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5`
+- **Increased Gap Spacing**: `gap-6` for better layout
 
 ### Login Dashboard Updates
-- **Register Button**: Now uses user.svg instead of 👤 emoji
-- **Password Visibility**: Removed animation, clean toggle only
-- **Help Link**: Changed to help.svg button with inline styling
-- **Contact Modal**: Added to Login.vue for consistency
+- **Register Button Icon**: Changed from `user.svg` to `register_user.svg` (both desktop & mobile)
+- Applied across all UI sections for consistency
 
-### Dashboard Updates
-- **Mobile Header**: Help button with rounded hover state
-- **Desktop Help Button**: Floating button with gradient background
-- **Both Sidebars**: White home and logout icons with proper filtering
-- **Responsive**: Help button adapts to screen size
-
-## Previous Changes (Earlier 2025-11-28)
-
-### Image Compression
-- Client-side image compression using Canvas API
-- Automatic compression to 1MB or below before uploading
-- Smart quality reduction: starts at 0.9, decreases by 0.08 per attempt
-- Maintains aspect ratio and maximum 1920x1920 dimensions
-
-### Styled Notifications & Security
-- Replaced all alert() with styled error modal ("Oops!" header)
-- Anti-copy protection: disabled text selection, blocked right-click/shortcuts
-- Form inputs preserved with normal text selection
-
-### Admin Security & Developers Popup
-- Fixed admin display name to hide password
-- "Meet Our Developers" popup with 5 developer profiles
-- Accessible from Login, Register, and Dashboard
+### Professional SVG Icon System (Complete)
+- **All Emojis Replaced**: user.svg, key.svg, mail.svg, register_user.svg, arrow_down.svg, course.svg, book.svg, detector.svg, calendar.svg, event_note.svg, home.svg, logout.svg, help.svg
+- **White Icon Filter**: `filter: brightness(0) invert(1);` for sidebar/gradient backgrounds
+- **Consistent Across All Pages**: Login, Register, Dashboard, and Modals
 
 ## Architecture
-Pure frontend application with no backend. All user data stored in browser's localStorage. Suitable for prototyping and development with comprehensive UI/UX polish.
+Pure frontend application with no backend. All user data stored in browser's localStorage. Suitable for prototyping and development with comprehensive UI/UX polish and professional icon system.
